@@ -15,10 +15,12 @@ if __name__ == '__main__':
     k = int(sys.argv[4]) # number of community to detect
     output = sys.argv[5] # output filename
 
+    matrics = dict()
+
     start = time.time()
     graph = Util.readNetwork(ufile) # return a n*n matrix
     realComm = Util.readCommunity(cfile) # return a n*k matrix
-    readTime = time.time()-start
+    matrics["readTime"] = time.time()-start
 
     start = time.time()
     if algorithm == 'bigclam':
@@ -32,6 +34,12 @@ if __name__ == '__main__':
     else:
         print("invalid algorithm")
         exit(-1)
-    execTime = time.time()-start
+    matrics["execTime"] = time.time()-start
 
+    # evaluation matrics
+    matrics["f1score"] = Util.f1score(realComm,trainComm)
+    matrics["omgIdx"] = Util.omegaIndex(realComm,trainComm)
+    matrics["accuracy"] = Util.accuracy(realComm,trainComm)
+
+    Util.writeMetrics(output, matrics)
     Util.visualize(trainComm)
