@@ -21,7 +21,7 @@ if __name__ == '__main__':
     # load two matrix
     start = time.time()
     graph = Util.readNetwork(ufile) # return a n*n matrix
-    realComm = Util.readCommunity(cfile) # return a n*k matrix
+    realComm = Util.readCommunity(cfile) # return a community list, each item is a list of users
     metrics["readTime"] = time.time() - start
 
     # main algorithm

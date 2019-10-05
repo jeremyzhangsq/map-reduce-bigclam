@@ -18,9 +18,8 @@ def readCommunity(filename):
         each = line.rstrip("\n").split("\t")
         each = [int(a) for a in each]
         l.append(each)
-
     file.close()
-    pass
+    return l
 
 def visualize(community):
     pass
