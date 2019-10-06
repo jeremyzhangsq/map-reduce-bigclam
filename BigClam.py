@@ -31,9 +31,8 @@ def gradient(F, A, i):
       * i indicates the row under consideration
     """
     N, C = F.shape
-
     neighbours = np.where(A[i])
-    sum_nneigh = np.sum(F,axis=0) # pre store in eq.4
+    sum_nneigh = np.sum(F, axis=0) # pre store in eq.4
     sum_nneigh -= F[i]
     sum_neigh = np.zeros((C,))
     for nb in neighbours[0]:
@@ -45,21 +44,25 @@ def gradient(F, A, i):
     return grad
 
 
-def bigClam(graph, k, iterations=1):
+def bigClam(graph, k, theshold=0.00001):
     yita = 0.005  # todo: tunable parameter for gradient update
     epsilon = 10 ** (-8)  # background edge propability in sec. 4
     delta = np.sqrt(-np.log(1 - epsilon))  # threshold to determine user-community edge
     N = graph.shape[0]
     F = np.random.rand(N, k)  # todo: change F init to local minimal neighborhood
-
-    for n in range(iterations):
+    ll = np.infty
+    while True:
         for person in range(N):
-            print(person)
             grad = gradient(F, graph, person)
             F[person] += yita * grad
             F[person] = np.maximum(epsilon, F[person])  # F should be nonnegative
-        ll = log_likelihood(F, A)
-        print('At step %5i/%5i ll is %5.3f' % (n, iterations, ll))
+
+        newll = log_likelihood(F, A)
+        dt = abs(ll - newll)
+        print('At step %5i %5.3f ll is %5.3f' % (n, dt, ll))
+        if dt < theshold:
+            break
+        ll = newll
 
     C = []
     for j in range(k):
