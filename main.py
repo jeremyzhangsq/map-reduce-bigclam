@@ -39,6 +39,7 @@ if __name__ == '__main__':
         exit(-1)
     metrics["execTime"] = time.time() - start
 
+    print(trainComm)
     # evaluation metrics
     metrics["f1score"] = Util.f1score(realComm, trainComm)
     metrics["omgIdx"] = Util.omegaIndex(realComm, trainComm)
