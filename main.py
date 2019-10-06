@@ -45,6 +45,7 @@ if __name__ == '__main__':
     metrics["omgIdx"] = Util.omegaIndex(realComm, trainComm)
     metrics["accuracy"] = Util.accuracy(realComm, trainComm)
 
+    print(metrics)
     # output figure and metrics
     Util.writeMetrics(output, metrics)
     Util.visualize(trainComm)
