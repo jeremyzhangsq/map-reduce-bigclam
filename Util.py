@@ -4,12 +4,19 @@ import numpy as np
 def readNetwork(filename):
     file = open(filename,"r")
     n,m = file.readline().rstrip("\n").split("\t")
-    adj = np.zeros((int(n), int(n)), dtype=np.int8)
+    adjmtx = np.zeros((int(n), int(n)), dtype=np.int8)
+    adjlst = {}
     for i in range(int(m)):
         s,t = file.readline().rstrip("\n").split("\t")
-        adj[int(s),int(t)] = 1
+        s = int(s)
+        t = int(t)
+        adjmtx[s,t] = 1
+        if s not in adjlst:
+            adjlst[s] = [t]
+        else:
+            adjlst[s].append(t)
     file.close()
-    return adj
+    return adjmtx,adjlst
 
 def readCommunity(filename):
     file = open(filename,"r")

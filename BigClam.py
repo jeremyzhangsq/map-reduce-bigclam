@@ -24,18 +24,18 @@ def sigm(x):
     return np.divide(np.exp(-1. * x), 1. - np.exp(-1. * x))
 
 
-def gradient(F, A, i):
+def gradient(F, adjlst, i):
     """Implements equation 3 of
     https://cs.stanford.edu/people/jure/pubs/bigclam-wsdm13.pdf
       * i indicates the row under consideration
     """
     N, C = F.shape
 
-    neighbours = np.where(A[i])
+    neighbours = adjlst[i]
     sum_nneigh = np.sum(F, axis=0) # pre store in eq.4
     sum_nneigh -= F[i]
     sum_neigh = np.zeros((C,))
-    for nb in neighbours[0]:
+    for nb in neighbours:
         dotproduct = F[nb].dot(F[i])
         sum_neigh += F[nb] * sigm(dotproduct)
         sum_nneigh -= F[nb] # speed up non neighbor computation in eq.4
@@ -44,7 +44,7 @@ def gradient(F, A, i):
     return grad
 
 
-def bigClam(graph, k, theshold=0.00001):
+def bigClam(graph, adjlst, k, theshold=0.00001):
     yita = 0.005  # todo: tunable parameter for gradient update
     epsilon = 10 ** (-8)  # background edge propability in sec. 4
     delta = np.sqrt(-np.log(1 - epsilon))  # threshold to determine user-community edge
@@ -56,7 +56,7 @@ def bigClam(graph, k, theshold=0.00001):
     ll = np.infty
     while True:
         for person in range(N):
-            grad = gradient(F, graph, person)
+            grad = gradient(F, adjlst, person)
             F[person] += yita * grad
             F[person] = np.maximum(epsilon, F[person])  # F should be nonnegative
 

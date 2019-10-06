@@ -20,14 +20,14 @@ if __name__ == '__main__':
 
     # load two matrix
     start = time.time()
-    graph = Util.readNetwork(ufile) # return a n*n matrix
+    graph, adjlst = Util.readNetwork(ufile) # return a n*n matrix
     realComm = Util.readCommunity(cfile) # return a community list, each item is a list of users
     metrics["readTime"] = time.time() - start
 
     # main algorithm
     start = time.time()
     if algorithm == 'bigclam':
-        trainComm = bigClam(graph, k)
+        trainComm = bigClam(graph, adjlst, k)
     elif algorithm == 'nmf':
         trainComm = NMF(graph, k)
     elif algorithm == 'lc:':
