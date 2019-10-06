@@ -24,7 +24,7 @@ def sigm(x):
     return np.divide(np.exp(-1. * x), 1. - np.exp(-1. * x))
 
 
-def gradient(F, adjlst, i):
+def gradient(F, adjlst, i, sum_nneigh):
     """Implements equation 3 of
     https://cs.stanford.edu/people/jure/pubs/bigclam-wsdm13.pdf
       * i indicates the row under consideration
@@ -32,7 +32,7 @@ def gradient(F, adjlst, i):
     N, C = F.shape
 
     neighbours = adjlst[i]
-    sum_nneigh = np.sum(F, axis=0) # pre store in eq.4
+
     sum_nneigh -= F[i]
     sum_neigh = np.zeros((C,))
     for nb in neighbours:
@@ -49,14 +49,16 @@ def bigClam(graph, adjlst, k, theshold=0.00001):
     epsilon = 10 ** (-8)  # background edge propability in sec. 4
     delta = np.sqrt(-np.log(1 - epsilon))  # threshold to determine user-community edge
     N = graph.shape[0]
-    """todo: change F init to local minimal neighborhood 
-    src: https://snap.stanford.edu/snap/doc/snapuser-ref/dd/d81/classTCoda.html#a132e9f32c4ad4329d70dd555fc7b8cf0
-    """
+    # todo: change F init to local minimal neighborhood
+    # src: https://snap.stanford.edu/snap/doc/snapuser-ref/dd/d81/classTCoda.html#a132e9f32c4ad4329d70dd555fc7b8cf0
+
     F = np.random.rand(N, k)
     ll = np.infty
     while True:
+        # todo: check the correctness of pre store in eq.4
+        sum_nneigh = np.sum(F, axis=0)
         for person in range(N):
-            grad = gradient(F, adjlst, person)
+            grad = gradient(F, adjlst, person, sum_nneigh)
             F[person] += yita * grad
             F[person] = np.maximum(epsilon, F[person])  # F should be nonnegative
 
