@@ -29,24 +29,17 @@ def gradient(F, A, i):
     https://cs.stanford.edu/people/jure/pubs/bigclam-wsdm13.pdf
 
       * i indicates the row under consideration
-
-    The many forloops in this function can be optimized, but for
-    educational purposes we write them out clearly
     """
     N, C = F.shape
 
     neighbours = np.where(A[i])
-    nneighbours = np.where(1 - A[i])
-
+    sum_nneigh = np.sum(F,axis=0) # pre store in eq.4
+    sum_nneigh -= F[i]
     sum_neigh = np.zeros((C,))
     for nb in neighbours[0]:
         dotproduct = F[nb].dot(F[i])
         sum_neigh += F[nb] * sigm(dotproduct)
-
-    sum_nneigh = np.zeros((C,))
-    # todo: Speed up this computation using eq.4
-    for nnb in nneighbours[0]:
-        sum_nneigh += F[nnb]
+        sum_nneigh -= F[nb] # speed up non neighbor computation in eq.4
 
     grad = sum_neigh - sum_nneigh
     return grad
@@ -61,6 +54,7 @@ def bigClam(graph, k, iterations=1):
 
     for n in range(iterations):
         for person in range(N):
+            print(person)
             grad = gradient(F, graph, person)
             F[person] += yita * grad
             F[person] = np.maximum(epsilon, F[person])  # F should be nonnegative
