@@ -1,6 +1,6 @@
 import numpy as np
-
-
+import random
+import operator
 
 def log_likelihood(F, A):
     """implements equation 2 of
@@ -43,16 +43,68 @@ def gradient(F, adjlst, i, sum_nneigh):
     grad = sum_neigh - sum_nneigh
     return grad
 
+def getConductance(adjlst, vset, m):
+    cut = 0
+    vol = 0
+    for v in vset:
+        for nghr in adjlst[v]:
+            vol += 1
+            if nghr not in vset:
+                cut += 1
+    return cut/float(min(vol,m-vol))
 
-def bigClam(graph, adjlst, k, theshold=0.00001):
+def localMinNeig(G):
+    maps = {}
+    adjlst = G.list
+    m = G.m
+    for v in adjlst:
+        vset = adjlst[v]
+        vset.append(v)
+        maps[v] = getConductance(adjlst,vset,m)
+    return sorted(maps.items(),key=operator.itemgetter(1))
+
+def commInit(G, k, epsilon):
+    F = np.full((G.n, k), epsilon)
+    lists = localMinNeig(G)
+    vertexs = set(G.vertex)
+    cnt = 0
+    for vt, val in lists:
+        if vt not in vertexs:
+            continue
+        vset = G.list[vt]
+        vset.append(vt)
+        if cnt == k:
+            break
+        for v in vset:
+            if v in vertexs:
+                vertexs.remove(v)
+            F[v,cnt] = 1
+        cnt += 1
+
+
+    # random assign some user for no-member community
+    while cnt < k:
+        for i in range(10):
+            v = random.sample(G,vertexs,1)
+            F[v, cnt] = 1
+        cnt += 1
+
+    # todo: assign community to no-commuity user
+
+    return F
+
+
+def bigClam(G, k, theshold=0.00001):
     yita = 0.005  # todo: tunable parameter for gradient update
     epsilon = 10 ** (-8)  # background edge propability in sec. 4
     delta = np.sqrt(-np.log(1 - epsilon))  # threshold to determine user-community edge
-    N = graph.shape[0]
-    # todo: change F init to local minimal neighborhood
+    graph = G.matrix
+    adjlst = G.list
+    N = G.n
+    # change F init to local minimal neighborhood
     # src: https://snap.stanford.edu/snap/doc/snapuser-ref/dd/d81/classTCoda.html#a132e9f32c4ad4329d70dd555fc7b8cf0
+    F = commInit(G,k, epsilon)
 
-    F = np.random.rand(N, k)
     ll = np.infty
     while True:
         # todo: check the correctness of pre store in eq.4
