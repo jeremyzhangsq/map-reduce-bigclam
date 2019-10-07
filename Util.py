@@ -1,32 +1,38 @@
 import numpy as np
 
+class Graph:
+    def __init__(self, filename1, filename2):
+        self.readNetwork(filename1)
+        self.readCommunity(filename2)
 
-def readNetwork(filename):
-    file = open(filename,"r")
-    n,m = file.readline().rstrip("\n").split("\t")
-    adjmtx = np.zeros((int(n), int(n)), dtype=np.int8)
-    adjlst = {}
-    for i in range(int(m)):
-        s,t = file.readline().rstrip("\n").split("\t")
-        s = int(s)
-        t = int(t)
-        adjmtx[s,t] = 1
-        if s not in adjlst:
-            adjlst[s] = [t]
-        else:
-            adjlst[s].append(t)
-    file.close()
-    return adjmtx,adjlst
 
-def readCommunity(filename):
-    file = open(filename,"r")
-    l = []
-    for line in file.readlines():
-        each = line.rstrip("\n").split("\t")
-        each = [int(a) for a in each]
-        l.append(each)
-    file.close()
-    return l
+    def readNetwork(self, filename):
+        file = open(filename,"r")
+        n,m = file.readline().rstrip("\n").split("\t")
+        self.n = int(n)
+        self.m = int(m)
+        self.matrix = np.zeros((self.n, self.n), dtype=np.int8)
+        self.list = {}
+        for i in range(self.m):
+            s,t = file.readline().rstrip("\n").split("\t")
+            s = int(s)
+            t = int(t)
+            self.matrix[s, t] = 1
+            if s not in self.list:
+                self.list[s] = [t]
+            else:
+                self.list[s].append(t)
+        self.vertex = self.list.keys()
+        file.close()
+
+    def readCommunity(self, filename):
+        file = open(filename,"r")
+        self.community = []
+        for line in file.readlines():
+            each = line.rstrip("\n").split("\t")
+            each = [int(a) for a in each]
+            self.community.append(each)
+        file.close()
 
 def visualize(community):
     pass
