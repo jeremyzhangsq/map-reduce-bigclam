@@ -101,8 +101,6 @@ def commInit(G, k, epsilon):
             F[v, cnt] = 1
         cnt += 1
 
-    # assign community to no-commuity user
-    rndInit(G,F,k,vertexs)
     return F
 
 
@@ -115,7 +113,10 @@ def bigClam(G, k, theshold=0.00001):
     N = G.n
     # change F init to local minimal neighborhood
     # src: https://snap.stanford.edu/snap/doc/snapuser-ref/dd/d81/classTCoda.html#a132e9f32c4ad4329d70dd555fc7b8cf0
-    F = commInit(G,k, epsilon)
+    F = commInit(G, k, epsilon)
+
+    # change F init to random init
+    # F = rndInit(G, F, k, set(G.vertex))
 
     ll = np.infty
     while True:
@@ -125,7 +126,6 @@ def bigClam(G, k, theshold=0.00001):
             grad = gradient(F, adjlst, person, sum_nneigh)
             F[person] += yita * grad
             F[person] = np.maximum(epsilon, F[person])  # F should be nonnegative
-
         newll = log_likelihood(F, graph)
         dt = abs(ll - newll)
         print('At step %5i %5.3f ll is %5.3f' % (n, dt, ll))
