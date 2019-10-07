@@ -58,10 +58,22 @@ def localMinNeig(G):
     adjlst = G.list
     m = G.m
     for v in adjlst:
-        vset = adjlst[v]
+        vset = [e for e in adjlst[v]]
         vset.append(v)
         maps[v] = getConductance(adjlst,vset,m)
     return sorted(maps.items(),key=operator.itemgetter(1))
+
+def rndInit(G, F, k, vertex):
+    while len(vertex):
+        for v in vertex:
+            vset = [e for e in G.list[v]]
+            vset.append(v)
+            i = random.randrange(k)
+            for ele in vset:
+                if ele in vertex:
+                    vertex.remove(ele)
+                    F[ele,i] += 1
+            break
 
 def commInit(G, k, epsilon):
     F = np.full((G.n, k), epsilon)
@@ -89,13 +101,13 @@ def commInit(G, k, epsilon):
             F[v, cnt] = 1
         cnt += 1
 
-    # todo: assign community to no-commuity user
-
+    # assign community to no-commuity user
+    rndInit(G,F,k,vertexs)
     return F
 
 
 def bigClam(G, k, theshold=0.00001):
-    yita = 0.005  # todo: tunable parameter for gradient update
+    yita = 0.0005  # todo: tunable parameter for gradient update
     epsilon = 10 ** (-8)  # background edge propability in sec. 4
     delta = np.sqrt(-np.log(1 - epsilon))  # threshold to determine user-community edge
     graph = G.matrix
