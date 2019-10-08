@@ -9,21 +9,33 @@ sumFV = []
 def getConductance(adjlst, vset, m):
     cut = 0
     vol = 0
+    edge = 2*m if m>=0 else m
     for v in vset:
         for nghr in adjlst[v]:
             vol += 1
             if nghr not in vset:
                 cut += 1
-    return cut/float(min(vol,m-vol))
+    if vol!=edge:
+        if 2*vol > edge:
+            return cut/float(edge-vol)
+        elif not vol:
+            return 0
+        else:
+            return cut/float(vol)
+    else:
+        return 1
 
 def localMinNeig(G):
     maps = {}
     adjlst = G.list
     m = G.m
     for v in adjlst:
-        vset = [e for e in adjlst[v]]
-        vset.append(v)
-        maps[v] = getConductance(adjlst,vset,m)
+        if len(adjlst[v])<5:
+            maps[v] = 1
+        else:
+            vset = [e for e in adjlst[v]]
+            vset.append(v)
+            maps[v] = getConductance(adjlst,vset,m)
     return sorted(maps.items(),key=operator.itemgetter(1))
 
 
