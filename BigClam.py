@@ -5,6 +5,48 @@ import time
 import sys
 sumFV = []
 
+def addCom(FMap, nid, cid, val):
+    global sumFV
+    if cid in FMap[nid]:
+        sumFV[cid] -= FMap[nid][cid]
+    FMap[nid][cid] = val
+    sumFV[cid] += val
+
+def delCom(F,nid,cid):
+    global sumFV
+    if cid in F[nid]:
+        sumFV[cid] -= F[nid][cid]
+        del F[nid][cid]
+
+def getCom(F,nid,cid):
+    if cid in F[nid]:
+        return F[nid][cid]
+    else:
+        return 0
+
+def dotproduct(Fu,Fv):
+    if len(Fu) > len(Fv):
+        F1 = Fu
+        F2 = Fv
+    else:
+        F1 = Fv
+        F2 = Fu
+    dp = 0
+    for ele in F1:
+        if ele in F2:
+            dp += F1[ele]*F2[ele]
+    return dp
+
+def norm2(gradU):
+    N = 0
+    for each in gradU:
+        N += gradU[each]**2
+    return N
+
+def prediction(Fu,Fv,epsilon):
+    dp = np.log(1.0/(1.0-epsilon)) + dotproduct(Fu,Fv)
+    return np.exp(-dp)
+
 
 def getConductance(adjlst, vset, m):
     cut = 0
@@ -38,50 +80,6 @@ def localMinNeig(G):
             maps[v] = getConductance(adjlst,vset,m)
     return sorted(maps.items(),key=operator.itemgetter(1))
 
-
-
-def addCom(FMap, nid, cid, val):
-    global sumFV
-    if cid in FMap[nid]:
-        sumFV[cid] -= FMap[nid][cid]
-    FMap[nid][cid] = val
-    sumFV[cid] += val
-
-def delCom(F,nid,cid):
-    global sumFV
-    if cid in F[nid]:
-        sumFV[cid] -= F[nid][cid]
-        del F[nid][cid]
-
-def getCom(F,nid,cid):
-    if cid in F[nid]:
-        return F[nid][cid]
-    else:
-        return 0
-
-def rndInit(G, k):
-    global sumFV
-    sumFV = [0 for i in range(k)]
-    vertex = [i for i in range(G.n)]
-    FMap = {}
-    for i in range(G.n):
-        FMap[i] = dict()
-    for v in vertex:
-        mem = len(G.list[v])
-        if mem > 10:
-            mem = 10
-        for c in range(mem):
-            i = random.randrange(k)
-            val = random.random()
-            addCom(FMap, v, i, val)
-
-    for c in range(len(sumFV)):
-        if not sumFV[c]:
-            node = random.randrange(G.n)
-            val = random.random()
-            addCom(FMap, node, c, val)
-
-    return FMap
 
 def commInit(G, k):
     global sumFV
@@ -118,28 +116,6 @@ def commInit(G, k):
 
     return FMap
 
-def dotproduct(Fu,Fv):
-    if len(Fu) > len(Fv):
-        F1 = Fu
-        F2 = Fv
-    else:
-        F1 = Fv
-        F2 = Fu
-    dp = 0
-    for ele in F1:
-        if ele in F2:
-            dp += F1[ele]*F2[ele]
-    return dp
-
-def norm2(gradU):
-    N = 0
-    for each in gradU:
-        N += gradU[each]**2
-    return N
-
-def prediction(Fu,Fv,epsilon):
-    dp = np.log(1.0/(1.0-epsilon)) + dotproduct(Fu,Fv)
-    return np.exp(-dp)
 
 
 def gradientRow(G,FMap,node,cidSet,w,epsilon):
@@ -206,10 +182,8 @@ def getStepByLinearSearch(u, G, FMap, deltaV, gradV, w, epsilon, stepAlpha, step
 def trainByList(G, k, w, epsilon, alpha, beta, theshold, maxIter):
     # F init by local minimal neighborhood
     begin = time.time()
-    FMap = rndInit(G, k)
+    FMap = commInit(G, k)
     print("init:{}s".format(time.time()-begin))
-    # F init by random init
-    # F = rndInit(G, F, k, set(G.vertex))
 
     adjlst = G.list
 
