@@ -90,27 +90,31 @@ def commInit(G, k):
     for i in range(G.n):
         FMap[i] = dict()
     lists = localMinNeig(G)
-    vertexs = set(G.vertex)
+    vertexs = set()
     cnt = 0
     for vt, val in lists:
-        if vt not in vertexs:
+        if vt in vertexs:
             continue
+        vertexs.add(vt)
+        addCom(FMap, vt, cnt, 1)
         vset = G.list[vt]
         vset.append(vt)
         if cnt == k:
             break
         for v in vset:
-            if v in vertexs:
-                vertexs.remove(v)
             addCom(FMap,v,cnt,1)
+            vertexs.add(v)
         cnt += 1
+        if cnt >= k:
+            break
 
     # random assign some user for no-member community
-    while cnt < k:
-        for i in range(10):
-            v = random.sample(G,vertexs,1)
-            addCom(FMap, v, cnt, 1)
-        cnt += 1
+    for i in range(k):
+        val = sumFV[i]
+        if not val:
+            for idx in range(10):
+                v = random.sample(G,vertexs,1)
+                addCom(FMap, v, i, 1)
 
     return FMap
 
