@@ -232,7 +232,7 @@ def trainByList(G, k, w, epsilon, alpha, beta, theshold, maxIter):
                     addCom(FMap,person,cid,newFuc)
         iter += 1
         curL = Likehood(G,FMap,w,epsilon)
-        print("iter:{} likelihood:{} time:{}s".format(iter,curL,time.time()-begin))
+        print("iter:{} likelihood:{} delta:{} time:{}s".format(iter,curL,abs((curL-prevL)/prevL),time.time()-begin))
         if abs((curL-prevL)/prevL) <= theshold:
             break
         else:
