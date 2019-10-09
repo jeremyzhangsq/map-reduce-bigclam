@@ -230,7 +230,7 @@ def trainByList(G, k, w, epsilon, alpha, beta, theshold, maxIter):
     return FMap
 
 
-def bigClam(G, k, alpha=0.05, beta=0.3, theshold=0.001,maxIter=1000):
+def bigClam(G, k, alpha=0.05, beta=0.3, theshold=0.01,maxIter=1000):
     epsilon = 1.0/G.n  # background edge propability in sec. 4
     w = 1
     delta = np.sqrt(-np.log(1 - epsilon))  # threshold to determine user-community edge
@@ -238,11 +238,9 @@ def bigClam(G, k, alpha=0.05, beta=0.3, theshold=0.001,maxIter=1000):
 
     F = trainByList(G, k, w, epsilon, alpha, beta, theshold, maxIter)
 
-    C = []
-    for j in range(k):
-        c = []
-        for i in range(N):
-            if F[i][j] >= delta:
-                c.append(i)
-        C.append(c)
+    C = [[] for i in range(k)]
+    for user in F:
+        for com in F[user]:
+            if F[user][com] > delta:
+                C[com].append(user)
     return C
