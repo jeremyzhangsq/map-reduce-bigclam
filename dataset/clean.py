@@ -31,7 +31,7 @@ for i in range(int(m)):
 
 file.close()
 outfile = open(outname,"w")	
-outfile.write("{}\t{}\n".format(n,m))
+outfile.write("{}\t{}\n".format(n,2*m))
 for each in graph:
 	for value in graph[each]:
 		outfile.write("{}\t{}\n".format(maps[each],maps[value]))
