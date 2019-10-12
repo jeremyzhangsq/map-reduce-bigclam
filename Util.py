@@ -18,6 +18,7 @@ class Graph:
             s = int(s)
             t = int(t)
             self.matrix[s, t] = 1
+            self.matrix[t, s] = 1
             if s not in self.list:
                 self.list[s] = [t]
             else:
