@@ -31,18 +31,13 @@ for i in range(m):
     u, v = line.rstrip("\n").split("\t")
     if u in community and v in community:
         if u in graph:
-            graph[u].append(v)
+            graph[u].add(v)
         else:
-            graph[u] = [v]
+            graph[u] = set()
+            graph[u].add(v)
             map[u] = id
             id += 1
-        if v in graph:
-            graph[v].append(u)
-        else:
-            graph[v] = [u]
-            map[v] = id
-            id += 1
-        cnt += 2
+        cnt += 1
 file.close()
 
 ocom = open("{}{}.txt".format(cname.rstrip(".txt"),k),"w")
