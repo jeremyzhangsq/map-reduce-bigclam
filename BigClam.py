@@ -51,7 +51,7 @@ def prediction(Fu,Fv,epsilon):
 def getConductance(adjlst, vset, m):
     cut = 0
     vol = 0
-    edge = 2*m if m>=0 else m
+    edge = 2*m if m >= 0 else m
     for v in vset:
         for nghr in adjlst[v]:
             vol += 1
@@ -230,10 +230,10 @@ def trainByList(G, k, w, epsilon, alpha, beta, theshold, maxIter):
     return FMap
 
 
-def bigClam(G, k, alpha=0.05, beta=0.3, theshold=0.0001,maxIter=1000):
-    epsilon = 1.0/G.n  # background edge propability in sec. 4
+def bigClam(G, k, alpha=0.05, beta=0.3, theshold=0.01,maxIter=1000):
+    epsilon = 10**(-8)  # background edge propability in sec. 4
     w = 1
-    delta = np.sqrt(-np.log(1 - epsilon))  # threshold to determine user-community edge
+    delta = np.sqrt(epsilon)  # threshold to determine user-community edge
     N = G.n
 
     F = trainByList(G, k, w, epsilon, alpha, beta, theshold, maxIter)
