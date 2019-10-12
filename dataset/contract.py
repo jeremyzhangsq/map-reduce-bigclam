@@ -3,6 +3,7 @@ Given a size of comminities k,
 shrink the input graph to a demo graph where only k communities exists
 """
 import sys
+import random
 
 fname = sys.argv[1]
 cname = sys.argv[2]
@@ -13,12 +14,17 @@ comlist = []
 graph = dict()
 map = dict()
 com = open(cname,"r")
-for i in range(k):
-    line = com.readline()
+all = []
+for line in com.readlines():
     l = line.rstrip("\n").split("\t")
+    all.append(l)
+com.close()
+
+for i in range(k):
+    idx = random.randrange(len(all))
+    l = all.pop(idx)
     comlist.append(l)
     community = community.union(set(l))
-com.close()
 
 file = open(fname,"r")
 n,m = file.readline().rstrip("\n").split("\t")
