@@ -9,6 +9,7 @@ fname = sys.argv[1]
 cname = sys.argv[2]
 k = int(sys.argv[3])
 
+random.seed(1)
 community = set()
 comlist = []
 graph = dict()
@@ -30,20 +31,24 @@ file = open(fname,"r")
 n,m = file.readline().rstrip("\n").split("\t")
 n = int(n)
 m = int(m)
-cnt = 0
 id = 0
+cnt = 0
 for i in range(m):
     line = file.readline()
     u, v = line.rstrip("\n").split("\t")
     if u in community and v in community:
         if u in graph:
-            graph[u].add(v)
+            graph[u].append(v)
+            cnt += 1
         else:
-            graph[u] = set()
-            graph[u].add(v)
+            graph[u] = [v]
+            cnt += 1
+        if u not in map:
             map[u] = id
             id += 1
-        cnt += 1
+        if v not in map:
+            map[v] = id
+            id += 1
 file.close()
 
 ocom = open("{}{}.txt".format(cname.rstrip(".txt"),k),"w")
@@ -57,8 +62,8 @@ ocom.close()
 
 
 ofile = open("{}{}.txt".format(fname.rstrip(".txt"),k),"w")
-vs = len(graph)
-ofile.write("{}\t{}\n".format(vs,cnt))
+pair = set()
+ofile.write("{}\t{}\n".format(id,cnt))
 for key in graph:
     for value in graph[key]:
         ofile.write("{}\t{}\n".format(map[key],map[value]))

@@ -10,10 +10,10 @@ class Graph:
         file = open(filename,"r")
         n,m = file.readline().rstrip("\n").split("\t")
         self.n = int(n)
-        self.m = int(m)
+        self.m = 2*int(m)
         self.matrix = np.zeros((self.n, self.n), dtype=np.int8)
         self.list = {}
-        for i in range(self.m):
+        for i in range(int(m)):
             s,t = file.readline().rstrip("\n").split("\t")
             s = int(s)
             t = int(t)
@@ -22,6 +22,10 @@ class Graph:
                 self.list[s] = [t]
             else:
                 self.list[s].append(t)
+            if t not in self.list:
+                self.list[t] = [s]
+            else:
+                self.list[t].append(s)
         self.vertex = self.list.keys()
         file.close()
 
@@ -34,8 +38,15 @@ class Graph:
             self.community.append(each)
         file.close()
 
-def visualize(community):
-    pass
+def outputCommunity(community,file):
+    out = open(file,"w")
+    for item in community:
+        s = ""
+        for each in item[:-1]:
+            s += str(each) + "\t"
+        s += str(item[-1]) + "\n"
+        out.write(s)
+    out.close()
 
 def f1score(truth, train):
     pass

@@ -20,18 +20,17 @@ for i in range(int(m)):
 		graph[u].append(v)
 	else:
 		graph[u] = [v]
+
+	if u not in maps:
 		maps[u] = cnt
 		cnt += 1
-	if v in graph:
-		graph[v].append(u)
-	else:
-		graph[v] = [u]
+	if v not in maps:
 		maps[v] = cnt
 		cnt += 1
 
 file.close()
 outfile = open(outname,"w")	
-outfile.write("{}\t{}\n".format(n,2*m))
+outfile.write("{}\t{}\n".format(n,m))
 for each in graph:
 	for value in graph[each]:
 		outfile.write("{}\t{}\n".format(maps[each],maps[value]))
