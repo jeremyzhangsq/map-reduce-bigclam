@@ -29,7 +29,7 @@ if __name__ == '__main__':
         trainComm = bigClam(graph, k)
     elif algorithm == 'nmf':
         trainComm = NMF(graph, k)
-    elif algorithm == 'lc:':
+    elif algorithm == 'lc':
         trainComm = LC(graph, k)
     elif algorithm == 'cpm':
         trainComm = CPM(graph, k)
