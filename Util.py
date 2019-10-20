@@ -97,7 +97,7 @@ def omegaIndex(truth, train):
 
 
 def accuracy(truth, train):
-    pass
+    return 1-abs(len(truth)-len(train))/float(2*len(truth))
 
 def writeMetrics(filename, dic):
     pass
