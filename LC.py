@@ -172,7 +172,6 @@ def write_edge2cid(e2c, filename, delimiter="\t"):
 
 def LC(G, k):
     delimiter = '\t'
-    args = str(sys.argv[1])
 
     print("# loading network from edgelist...")
     basename = "LC"
