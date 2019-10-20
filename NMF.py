@@ -58,11 +58,11 @@ def NMF(G, k):
 
     print('\nIter = %d Final proj-grad norm %f' % (iter, projnorm))
 
-    C = [[] for i in range(k)]
+    C = {}
     for idx, row in enumerate(W):
         list_row = row.tolist()
         max_index = list_row.index(max(list_row))  # return index of max value
-        C[max_index].append(idx)
+        C.setdefault(str(max_index), []).append(str(idx))
 
     return C
 
