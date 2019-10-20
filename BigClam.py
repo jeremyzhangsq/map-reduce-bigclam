@@ -238,9 +238,12 @@ def bigClam(G, k, alpha=0.05, beta=0.3, theshold=0.01,maxIter=1000):
 
     F = trainByList(G, k, w, epsilon, alpha, beta, theshold, maxIter)
 
-    C = [[] for i in range(k)]
+    C = {}
     for user in F:
         for com in F[user]:
             if F[user][com] > delta:
-                C[com].append(user)
+                if com not in C:
+                    C[com] = [user]
+                else:
+                    C[com].append(user)
     return C

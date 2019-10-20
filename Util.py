@@ -1,5 +1,5 @@
 import numpy as np
-
+from Omega import Omega
 class Graph:
     def __init__(self, filename1, filename2):
         self.readNetwork(filename1)
@@ -32,11 +32,13 @@ class Graph:
 
     def readCommunity(self, filename):
         file = open(filename,"r")
-        self.community = []
+        self.community = {}
+        cnt = 0
         for line in file.readlines():
             each = line.rstrip("\n").split("\t")
             each = [int(a) for a in each]
-            self.community.append(each)
+            self.community[cnt]=each
+            cnt += 1
         file.close()
 
 def outputCommunity(community,file):
@@ -53,7 +55,9 @@ def f1score(truth, train):
     pass
 
 def omegaIndex(truth, train):
-    pass
+    omega = Omega(train,truth)
+    return omega.omega_score
+
 
 def accuracy(truth, train):
     pass
