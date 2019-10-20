@@ -78,7 +78,6 @@ class HLC:
 
         H = similarities_unweighted(self.adj)  # min-heap ordered by 1-s
         S_prev = -1
-        a=0
         # (1.0, (None, None)) takes care of the special case where the last
         # merging gives the maximum partition density (e.g. a single clique).
         for oms, eij_eik in chain(H, [(1.0, (None, None))]):
@@ -90,8 +89,6 @@ class HLC:
                 if self.D >= self.best_D:  # check PREVIOUS merger, because that's
                     self.best_D = self.D  # the end of the tie
                     self.best_S = S
-                    a=a+1
-                    print("self_P changes",a)
                     self.best_P = copy(self.edge2cid)  # slow...
                 self.list_D.append((S, self.D))
                 S_prev = S
@@ -137,7 +134,7 @@ def read_edgelist_unweighted(filename, delimiter=None, nodetype=str):
             edges.add(swap(ni, nj))
             adj[ni].add(nj)
             adj[nj].add(ni)  # since undirected
-    print(dict(adj), edges)
+    # print(dict(adj), edges)
     return dict(adj), edges
 
 
@@ -148,7 +145,7 @@ def write_edge2cid(e2c, filename, delimiter="\t"):
     # renumber community id's to be sequential, makes output file human-readable
     c2c = dict((c, i + 1) for i, c in enumerate(sorted(list(set(e2c.values())))))  # ugly...
 
-    trainComm = []
+    trainComm = {}
     cid2edges, cid2nodes = defaultdict(set), defaultdict(set)  # faster to recreate here than
     # for edge, cid in e2c.iteritems():  # to keep copying all dicts
     for edge, cid in e2c.items():  # to keep copying all dicts
@@ -158,29 +155,26 @@ def write_edge2cid(e2c, filename, delimiter="\t"):
 
     # write list of edges for each comm, each comm on its own line
     # first entry of each line is cid
-    f, g = open(filename + ".comm2edges.txt", 'w'), open(filename + ".comm2nodes.txt", 'w')
-    print(filename)
+    # f, g = open(filename + ".comm2edges.txt", 'w'), open(filename + ".comm2nodes.txt", 'w')
     for cid in sorted(cid2edges.keys()):
         strcid = str(c2c[cid])
         nodes = list(map(str, cid2nodes[cid]))
         edges = ["%s,%s" % (ni, nj) for ni, nj in cid2edges[cid]]
-        f.write(delimiter.join([strcid] + edges))
-        f.write("\n")
+        # f.write(delimiter.join([strcid] + edges))
+        # f.write("\n")
         # g.write(delimiter.join([strcid] + list(nodes))) #加了list
-        g.write(delimiter.join(nodes)) #加了list
-        trainComm.append(nodes)
-        g.write("\n")
-    f.close()
-    g.close()
+        # g.write(delimiter.join(nodes)) #加了list
+        trainComm[strcid] = nodes
+        # g.write("\n")
+    # f.close()
+    # g.close()
     return trainComm
 
 def LC(G, k):
     delimiter = '\t'
-    args = str(sys.argv[1])
 
     print("# loading network from edgelist...")
     basename = "LC"
-    # adj, edges = read_edgelist_unweighted(args, delimiter=delimiter)
     adj = {}
     for k, v in G.list.items():
         adj[str(k)] = set(list(map(str, v)))
