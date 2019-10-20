@@ -21,6 +21,7 @@ if __name__ == '__main__':
     # load two matrix
     start = time.time()
     graph = Util.Graph(ufile,cfile)
+    metrics["algorithm"] = algorithm
     metrics["readTime"] = time.time() - start
 
     # main algorithm
@@ -37,8 +38,8 @@ if __name__ == '__main__':
         print("invalid algorithm")
         exit(-1)
     metrics["execTime"] = time.time() - start
-
     realComm = graph.community
+    trainComm = {int(k):[int(i) for i in v] for k,v in trainComm.items()}
     print(trainComm)
     # evaluation metrics
     metrics["f1score"] = Util.f1score(realComm, trainComm)
@@ -47,5 +48,5 @@ if __name__ == '__main__':
 
     print(metrics)
     # output figure and metrics
-    Util.writeMetrics(output, metrics)
-    Util.outputCommunity(trainComm,output)
+    # Util.writeMetrics(output, metrics)
+    # Util.outputCommunity(trainComm,output)
