@@ -51,8 +51,45 @@ def outputCommunity(community,file):
         out.write(s)
     out.close()
 
+def F1(com1,com2):
+    correctly_classified = list(set(com1).intersection(set(com2)))
+    precision = len(correctly_classified) / float(len((com1)))
+    recall = len(correctly_classified) / float(len(com2))
+    if precision != 0 and recall != 0:
+        Fscore = 2* precision * recall / float(precision + recall)
+    else:
+        Fscore = 0
+    return Fscore
+def bestMatch(one, all):
+    maxf1 = 0
+    for each in all:
+        com2 = all[each]
+        score = F1(one,com2)
+        if score>maxf1:
+            maxf1 = score
+        if maxf1==1:
+            return maxf1
+    return maxf1
+
+
 def f1score(truth, train):
-    pass
+    """
+    Quote from WSDM12: We define F1 score to be the average of the F1-score of the best matching ground-truth community
+    to each detected community, and the F1-score of the best-matching detected community to each ground-truth community
+    """
+    truthscore = 0
+    trainscore = 0
+    truthNum = len(truth)
+    trainNum = len(train)
+    for i in truth:
+        truthcom = truth[i]
+        truthscore += bestMatch(truthcom,train)
+    for j in train:
+        traincom = train[j]
+        trainscore += bestMatch(traincom,truth)
+
+    return 0.5*(trainscore/float(trainNum)+truthscore/float(truthNum))
+
 
 def omegaIndex(truth, train):
     omega = Omega(train,truth)
