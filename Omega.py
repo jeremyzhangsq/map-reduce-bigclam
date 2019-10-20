@@ -1,3 +1,6 @@
+'''
+import from https://github.com/isaranto/omega_index.git
+'''
 from __future__ import division
 from itertools import combinations
 from collections import Counter
