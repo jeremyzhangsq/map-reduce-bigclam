@@ -43,8 +43,9 @@ class Graph:
 
 def outputCommunity(community,file):
     out = open(file,"w")
-    for item in community:
+    for i in community:
         s = ""
+        item = community[i]
         for each in item[:-1]:
             s += str(each) + "\t"
         s += str(item[-1]) + "\n"
