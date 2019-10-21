@@ -41,8 +41,24 @@ class Graph:
             cnt += 1
         file.close()
 
-def outputCommunity(community,file):
+def outputCommunity(metrics,community,file):
+    '''
+    outputfile format:
+        algorithm\n
+        readtime\n
+        executiontime\n
+        f1score\n
+        omega-index\n
+        accuracy\n
+        lines of communities (users inside a community is delimited by \t)
+    '''
     out = open(file,"w")
+    out.write("{}\n".format(metrics["algorithm"]))
+    out.write("{}\n".format(metrics["readTime"]))
+    out.write("{}\n".format(metrics["execTime"]))
+    out.write("{}\n".format(metrics["f1score"]))
+    out.write("{}\n".format(metrics["omgIdx"]))
+    out.write("{}\n".format(metrics["accuracy"]))
     for i in community:
         s = ""
         item = community[i]
@@ -99,6 +115,3 @@ def omegaIndex(truth, train):
 
 def accuracy(truth, train):
     return 1-abs(len(truth)-len(train))/float(2*len(truth))
-
-def writeMetrics(filename, dic):
-    pass

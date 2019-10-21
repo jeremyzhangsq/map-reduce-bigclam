@@ -48,5 +48,4 @@ if __name__ == '__main__':
 
     print(metrics)
     # output figure and metrics
-    # Util.writeMetrics(output, metrics)
-    # Util.outputCommunity(trainComm,output)
+    Util.outputCommunity(metrics,trainComm,output)
