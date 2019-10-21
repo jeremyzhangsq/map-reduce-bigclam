@@ -102,19 +102,9 @@ def get_fast_percolated_cliques(G, k):
 def CPM(Ipfile, k):
     trainComm = {}
     commNum = 0
-    print("---------------START---------------")
     G = nx.read_edgelist(Ipfile, nodetype=str, delimiter="\t")
-    print("Graph Loaded. ")
-
-    handle, extension = Ipfile.split(".")
-    Opfile = handle + "_com" + str(k) + "." + extension
-    f = open(Opfile, 'w')
     for c in get_fast_percolated_cliques(G, k):
-        f.write(" ".join([str(x) for x in c]))
-        f.write("\n")
         list_c = list(c)
         trainComm[commNum] = list_c
         commNum = commNum + 1
-    f.close()
-    print("----------------END----------------")
     return trainComm
