@@ -3,6 +3,9 @@ import random
 import operator
 import time
 import sys
+import seaborn as sns
+import Util
+import matplotlib.pyplot as plt
 sumFV = []
 
 def addCom(FMap, nid, cid, val):
@@ -179,18 +182,30 @@ def getStepByLinearSearch(u, G, FMap, deltaV, gradV, w, epsilon, stepAlpha, step
             break
     return stepSize
 
-def trainByList(G, k, w, epsilon, alpha, beta, theshold, maxIter):
+def getCommunity(F,delta):
+    C = {}
+    for user in F:
+        for com in F[user]:
+            if F[user][com] > delta:
+                if com not in C:
+                    C[com] = [user]
+                else:
+                    C[com].append(user)
+    return C
+
+def trainByList(G,truth, k, w, epsilon, alpha, beta, theshold, maxIter):
     # F init by local minimal neighborhood
     begin = time.time()
     FMap = commInit(G, k)
     print("init:{}s".format(time.time()-begin))
-
     adjlst = G.list
-
+    delta = np.sqrt(epsilon)
     vertex = [i for i in range(G.n)]
     iter = 0
     prevL = -sys.maxsize
     curL = 0
+    f1score = []
+    xiter = []
     begin = time.time()
     while iter < maxIter:
         random.shuffle(vertex)
@@ -223,27 +238,39 @@ def trainByList(G, k, w, epsilon, alpha, beta, theshold, maxIter):
         iter += 1
         curL = Likehood(G,FMap,w,epsilon)
         print("iter:{} likelihood:{} delta:{} time:{}s".format(iter,curL,abs((curL-prevL)/prevL),time.time()-begin))
+
+
+        comm = getCommunity(FMap,delta)
+        f1 = Util.f1score(truth,comm)
+        f1score.append(f1)
+        xiter.append(iter)
+
+        if iter%5 == 0:
+            llval = []
+            for item in FMap:
+                for val in FMap[item]:
+                    llval.append(FMap[item][val])
+            plt.figure()
+            sns.kdeplot(llval)
+            plt.ylim([0,0.3])
+            plt.savefig("likehood_distribution_{}.png".format(iter))
+
         if abs((curL-prevL)/prevL) <= theshold:
             break
         else:
             prevL = curL
+    plt.figure()
+    plt.plot(xiter, f1score)
+    plt.savefig("f1score_iter.png")
     return FMap
 
 
-def bigClam(G, k, alpha=0.05, beta=0.3, theshold=0.01,maxIter=1000):
+
+def bigClam(G, truth, k, alpha=0.05, beta=0.3, theshold=0.01,maxIter=1000):
     epsilon = 10**(-8)  # background edge propability in sec. 4
     w = 1
     delta = np.sqrt(epsilon)  # threshold to determine user-community edge
     N = G.n
-
-    F = trainByList(G, k, w, epsilon, alpha, beta, theshold, maxIter)
-
-    C = {}
-    for user in F:
-        for com in F[user]:
-            if F[user][com] > delta:
-                if com not in C:
-                    C[com] = [user]
-                else:
-                    C[com].append(user)
+    F = trainByList(G, truth, k, w, epsilon, alpha, beta, theshold, maxIter)
+    C = getCommunity(F,delta)
     return C
