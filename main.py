@@ -23,11 +23,11 @@ if __name__ == '__main__':
     graph = Util.Graph(ufile,cfile)
     metrics["algorithm"] = algorithm
     metrics["readTime"] = time.time() - start
-
+    realComm = graph.community
     # main algorithm
     start = time.time()
     if algorithm == 'bigclam':
-        trainComm = bigClam(graph, k)
+        trainComm = bigClam(graph, realComm, k)
     elif algorithm == 'nmf':
         trainComm = NMF(graph, k)
     elif algorithm == 'lc':
@@ -38,7 +38,7 @@ if __name__ == '__main__':
         print("invalid algorithm")
         exit(-1)
     metrics["execTime"] = time.time() - start
-    realComm = graph.community
+
     trainComm = {int(k):[int(i) for i in v] for k,v in trainComm.items()}
     print(trainComm)
     # evaluation metrics
