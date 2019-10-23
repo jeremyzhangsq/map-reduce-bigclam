@@ -100,6 +100,7 @@ def get_fast_percolated_cliques(G, k):
     return componentToNodes.values()
 
 def CPM(Ipfile, k):
+    k = 1
     trainComm = {}
     commNum = 0
     G = nx.read_edgelist(Ipfile, nodetype=str, delimiter="\t")
