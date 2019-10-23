@@ -1,20 +1,25 @@
 import numpy as np
 from Omega import Omega
+import re
+import sys
+from pyspark import SparkConf, SparkContext
+
+
 class Graph:
     def __init__(self, filename1, filename2):
-        self.readNetwork(filename1)
+#         self.readNetwork(filename1)
+        self.readNetwork_mapreduce(filename1)
         self.readCommunity(filename2)
 
-
     def readNetwork(self, filename):
-        file = open(filename,"r")
-        n,m = file.readline().rstrip("\n").split("\t")
+        file = open(filename, "r")
+        n, m = file.readline().rstrip("\n").split("\t")
         self.n = int(n)
         self.m = 2*int(m)
         self.matrix = np.zeros((self.n, self.n), dtype=np.int8)
         self.list = {}
         for i in range(int(m)):
-            s,t = file.readline().rstrip("\n").split("\t")
+            s, t = file.readline().rstrip("\n").split("\t")
             s = int(s)
             t = int(t)
             self.matrix[s, t] = 1
@@ -30,6 +35,46 @@ class Graph:
         self.vertex = self.list.keys()
         file.close()
 
+    def readNetwork_mapreduce(self, filename):
+        # initialize the environment
+        conf = SparkConf() 
+        sc = SparkContext(conf=conf)
+        
+        file = open(filename,"r")
+        n,m = file.readline().rstrip("\n").split("\t")
+        n = int(n)
+        m = int(m)
+        self.n = n
+        self.m = 2 * m
+        file.close()
+        
+        lines = sc.textFile(filename) # read text
+        header = lines.first()
+        header = sc.parallelize([header])
+        lines = lines.subtract(header)
+        pairs = lines.map(lambda l: re.split('\t', l)) # flatten + map
+        pairs = pairs.map(lambda w: (w[0], [w[1]]))
+        
+        self.matrix = np.zeros((self.n, self.n), dtype=np.int8)
+        self.list = {}
+        for item in pairs.collect():
+            s = item[0]
+            for t in item[1]:
+                s = int(s)
+                t = int(t)
+                self.matrix[s, t] = 1
+                self.matrix[t, s] = 1
+                if s not in self.list:
+                    self.list[s] = [t]
+                else:
+                    self.list[s].append(t)
+                if t not in self.list:
+                    self.list[t] = [s]
+                else:
+                    self.list[t].append(s)
+        self.vertex = self.list.keys()
+        
+    
     def readCommunity(self, filename):
         file = open(filename,"r")
         self.community = {}

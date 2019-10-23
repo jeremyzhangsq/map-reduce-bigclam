@@ -121,7 +121,7 @@ def commInit(G, k):
 
 
 
-def gradientRow(G,FMap,node,cidSet,w,epsilon, RegCoef=5):
+def gradientRow(G,FMap,node,cidSet,w,epsilon, RegCoef=10):
     preV = {}
     GradU = {}
     for e in G.list[node]:
@@ -242,7 +242,7 @@ def trainByList(G,truth, k, w, epsilon, alpha, beta, theshold, maxIter):
             if not learnRate:
                 continue
             for cid in gradv:
-                change = 0.1*learnRate*gradv[cid]
+                change = learnRate*gradv[cid]
                 newFuc = getCom(FMap,person,cid)+change
                 if newFuc <= 0:
                     delCom(FMap,person,cid)
@@ -255,7 +255,7 @@ def trainByList(G,truth, k, w, epsilon, alpha, beta, theshold, maxIter):
         f1 = Util.f1score(truth,comm)
         f1score.append(f1)
         xiter.append(iter)
-        print("iter:{} likelihood:{} delta:{} time:{}s f1score:{}".format(iter, curL, abs((curL - prevL) / prevL),
+        print("iter:{} likelihood:{:.3f} delta:{:.4f} time:{:.3f}s f1score:{:.3f}".format(iter, curL, abs((curL - prevL) / prevL),
                                                                time.time() - begin,f1))
         if iter%5 == 0:
             llval = []
@@ -263,9 +263,10 @@ def trainByList(G,truth, k, w, epsilon, alpha, beta, theshold, maxIter):
                 for val in FMap[item]:
                     llval.append(FMap[item][val])
             plt.figure()
-            sns.kdeplot(llval)
-            plt.ylim([0,0.3])
-            plt.savefig("likehood_distribution_{}.png".format(iter))
+            sns.distplot(llval)
+            plt.ylim([0,5])
+            plt.savefig("./log/f_kde{}.png".format(iter))
+            plt.close()
 
         if abs((curL-prevL)/prevL) <= theshold:
             break
@@ -275,11 +276,12 @@ def trainByList(G,truth, k, w, epsilon, alpha, beta, theshold, maxIter):
     plt.plot(xiter, f1score)
     # plt.ylim([0,1])
     plt.savefig("f1score_iter.png")
+    plt.close()
     return FMap
 
 
 
-def bigClam(G, truth, k, alpha=0.3, beta=0.1, theshold=0.01,maxIter=1000):
+def bigClam(G, truth, k, alpha=0.05, beta=0.3, theshold=0.005,maxIter=1000):
     epsilon = 10**(-8)  # background edge propability in sec. 4
     w = 1
     delta = np.sqrt(epsilon)  # threshold to determine user-community edge

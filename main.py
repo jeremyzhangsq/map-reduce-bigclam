@@ -2,7 +2,7 @@ import sys
 import time
 import Util
 from CPM import CPM
-from LC import LC
+# from LC import LC
 from BigClam import bigClam
 from NMF import NMF
 
