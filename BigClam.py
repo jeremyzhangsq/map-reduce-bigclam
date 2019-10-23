@@ -114,14 +114,14 @@ def commInit(G, k):
         val = sumFV[i]
         if not val:
             for idx in range(10):
-                v = random.sample(G,vertexs,1)
+                v = random.sample(G.vertex,1)
                 addCom(FMap, v, i, 1)
 
     return FMap
 
 
 
-def gradientRow(G,FMap,node,cidSet,w,epsilon):
+def gradientRow(G,FMap,node,cidSet,w,epsilon, RegCoef=5):
     preV = {}
     GradU = {}
     for e in G.list[node]:
@@ -133,6 +133,18 @@ def gradientRow(G,FMap,node,cidSet,w,epsilon):
             cm = getCom(FMap,ngh,cid)
             val += preV[ngh] * cm / (1-preV[ngh])+ w*cm
         val -= w*(sumFV[cid]-getCom(FMap,node,cid))
+        GradU[cid] = val
+
+    if RegCoef > 0:
+        for cid in GradU:
+            GradU[cid] -=RegCoef
+    if RegCoef < 0:
+        for cid in GradU:
+            GradU[cid] += 2 * RegCoef*getCom(FMap,node,cid)
+
+    GradV = {}
+    for cid in GradU:
+        val = GradU[cid]
         if not getCom(FMap,node,cid) and val < 0:
             continue
         if abs(val) < 0.0001:
@@ -141,8 +153,9 @@ def gradientRow(G,FMap,node,cidSet,w,epsilon):
             val = -10
         elif val > 10:
             val = 10
-        GradU[cid] = val
-    return GradU
+        GradV[cid]=val
+
+    return GradV
 
 
 def LikehoodForRow(G, FMap, u, Fu, w, epsilon):
@@ -229,7 +242,7 @@ def trainByList(G,truth, k, w, epsilon, alpha, beta, theshold, maxIter):
             if not learnRate:
                 continue
             for cid in gradv:
-                change = learnRate*gradv[cid]
+                change = 0.1*learnRate*gradv[cid]
                 newFuc = getCom(FMap,person,cid)+change
                 if newFuc <= 0:
                     delCom(FMap,person,cid)
@@ -237,14 +250,13 @@ def trainByList(G,truth, k, w, epsilon, alpha, beta, theshold, maxIter):
                     addCom(FMap,person,cid,newFuc)
         iter += 1
         curL = Likehood(G,FMap,w,epsilon)
-        print("iter:{} likelihood:{} delta:{} time:{}s".format(iter,curL,abs((curL-prevL)/prevL),time.time()-begin))
-
 
         comm = getCommunity(FMap,delta)
         f1 = Util.f1score(truth,comm)
         f1score.append(f1)
         xiter.append(iter)
-
+        print("iter:{} likelihood:{} delta:{} time:{}s f1score:{}".format(iter, curL, abs((curL - prevL) / prevL),
+                                                               time.time() - begin,f1))
         if iter%5 == 0:
             llval = []
             for item in FMap:
@@ -261,12 +273,13 @@ def trainByList(G,truth, k, w, epsilon, alpha, beta, theshold, maxIter):
             prevL = curL
     plt.figure()
     plt.plot(xiter, f1score)
+    # plt.ylim([0,1])
     plt.savefig("f1score_iter.png")
     return FMap
 
 
 
-def bigClam(G, truth, k, alpha=0.05, beta=0.3, theshold=0.01,maxIter=1000):
+def bigClam(G, truth, k, alpha=0.3, beta=0.1, theshold=0.01,maxIter=1000):
     epsilon = 10**(-8)  # background edge propability in sec. 4
     w = 1
     delta = np.sqrt(epsilon)  # threshold to determine user-community edge
