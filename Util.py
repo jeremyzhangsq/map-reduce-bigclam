@@ -7,7 +7,7 @@ from pyspark import SparkConf, SparkContext
 
 class Graph:
     def __init__(self, filename1, filename2):
-#         self.readNetwork(filename1)
+        # self.readNetwork(filename1)
         self.readNetwork_mapreduce(filename1)
         self.readCommunity(filename2)
 

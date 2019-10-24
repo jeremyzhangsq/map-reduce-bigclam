@@ -2,31 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ae63dbb4-9b6c-47f4-b91b-70a6610cb4e9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BigClam.py" beforeDir="false" afterPath="$PROJECT_DIR$/BigClam.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dataset/output20.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Util.py" beforeDir="false" afterPath="$PROJECT_DIR$/Util.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataset/output100.txt" beforeDir="false" afterPath="$PROJECT_DIR$/dataset/output100.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/f1score_iter.png" beforeDir="false" afterPath="$PROJECT_DIR$/f1score_iter.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/likehood_distribution_10.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/likehood_distribution_100.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/likehood_distribution_15.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/likehood_distribution_20.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/likehood_distribution_25.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/likehood_distribution_30.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/likehood_distribution_35.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/likehood_distribution_40.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/likehood_distribution_45.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/likehood_distribution_5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/likehood_distribution_50.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/likehood_distribution_55.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/likehood_distribution_60.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/likehood_distribution_65.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/likehood_distribution_70.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/likehood_distribution_75.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/likehood_distribution_80.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/likehood_distribution_85.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/likehood_distribution_90.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/likehood_distribution_95.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/f_kde10.png" beforeDir="false" afterPath="$PROJECT_DIR$/log/f_kde10.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/f_kde5.png" beforeDir="false" afterPath="$PROJECT_DIR$/log/f_kde5.png" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -36,20 +18,20 @@
   </component>
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/map_reduce_bigclam$overlap.coverage" NAME="overlap Coverage Results" MODIFIED="1570856828936" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/dataset" />
-    <SUITE FILE_PATH="coverage/map_reduce_bigclam$contract.coverage" NAME="contract Coverage Results" MODIFIED="1571835799838" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/dataset" />
-    <SUITE FILE_PATH="coverage/map_reduce_bigclam$main.coverage" NAME="main Coverage Results" MODIFIED="1571841539924" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/map_reduce_bigclam$contract.coverage" NAME="contract Coverage Results" MODIFIED="1571884057737" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/dataset" />
+    <SUITE FILE_PATH="coverage/map_reduce_bigclam$main.coverage" NAME="main Coverage Results" MODIFIED="1571892001930" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/map_reduce_bigclam$clean.coverage" NAME="clean Coverage Results" MODIFIED="1570291429842" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/dataset/network" />
     <SUITE FILE_PATH="coverage/map_reduce_bigclam$BigClam.coverage" NAME="BigClam Coverage Results" MODIFIED="1570446487209" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/map_reduce_bigclam$Util.coverage" NAME="Util Coverage Results" MODIFIED="1570286589449" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/map_reduce_bigclam$clean__1_.coverage" NAME="clean (1) Coverage Results" MODIFIED="1570860292762" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/dataset" />
+    <SUITE FILE_PATH="coverage/map_reduce_bigclam$clean__1_.coverage" NAME="clean (1) Coverage Results" MODIFIED="1571880974813" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/dataset" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/BigClam.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="189">
-              <caret line="123" column="54" selection-start-line="123" selection-start-column="54" selection-end-line="123" selection-end-column="54" />
+            <state relative-caret-position="1585">
+              <caret line="300" column="84" selection-start-line="300" selection-start-column="84" selection-end-line="300" selection-end-column="84" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -58,10 +40,30 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/dataset/dblp20.txt">
+        <entry file="file://$PROJECT_DIR$/f1score_iter.png">
+          <provider selected="true" editor-type-id="images" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="4" selection-start-column="4" selection-end-column="8" />
+            <state relative-caret-position="432">
+              <caret line="24" column="45" selection-start-line="24" selection-start-column="45" selection-end-line="24" selection-end-column="45" />
+              <folding>
+                <element signature="e#0#10#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Util.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="360">
+              <caret line="20" column="21" lean-forward="true" selection-start-line="20" selection-start-column="21" selection-end-line="20" selection-end-column="21" />
+              <folding>
+                <element signature="e#0#18#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -85,6 +87,8 @@
       <find>ground_truth_comm</find>
       <find>F</find>
       <find>addCom</find>
+      <find>LikehoodForRow</find>
+      <find>Likehood</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -99,19 +103,20 @@
         <option value="$PROJECT_DIR$/NMF.py" />
         <option value="$PROJECT_DIR$/dataset/network/clean.py" />
         <option value="$PROJECT_DIR$/dataset/overlap.py" />
-        <option value="$PROJECT_DIR$/dataset/clean.py" />
         <option value="$PROJECT_DIR$/dataset/contract.py" />
         <option value="$PROJECT_DIR$/Omega.py" />
-        <option value="$PROJECT_DIR$/Util.py" />
-        <option value="$PROJECT_DIR$/main.py" />
         <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/dataset/clean.py" />
+        <option value="$PROJECT_DIR$/main.py" />
+        <option value="$PROJECT_DIR$/Util.py" />
         <option value="$PROJECT_DIR$/BigClam.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" fullScreen="true">
-    <option name="width" value="1680" />
-    <option name="height" value="1050" />
+    <option name="x" value="-1920" />
+    <option name="width" value="1920" />
+    <option name="height" value="1080" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -204,7 +209,7 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/dataset/clean.py" />
-      <option name="PARAMETERS" value="dblp.txt dblp_comm.txt dblp1.txt dblp_comm1.txt" />
+      <option name="PARAMETERS" value="youtube.txt youtube_comm.txt youtube.txt youtube_comm1.txt" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -226,7 +231,7 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/dataset/contract.py" />
-      <option name="PARAMETERS" value="dblp.txt dblp_comm.txt 100" />
+      <option name="PARAMETERS" value="dblp.txt dblp_comm.txt 1000" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -313,12 +318,12 @@
       <workItem from="1571638263184" duration="1403000" />
       <workItem from="1571647430527" duration="140000" />
       <workItem from="1571826866920" duration="5492000" />
-      <workItem from="1571834794337" duration="5314000" />
+      <workItem from="1571834794337" duration="15741000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="98543000" />
+    <option name="totallyTimeSpent" value="108970000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -330,15 +335,15 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
+    <frame x="-1920" y="0" width="1920" height="1080" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.14163615" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.12353568" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.33877552" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32959184" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.33861387" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -347,7 +352,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.32871288" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="11" weight="0.29897958" />
+      <window_info anchor="bottom" id="Terminal" order="11" weight="0.29009902" />
       <window_info anchor="bottom" id="Python Console" order="12" weight="0.32970297" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -364,9 +369,9 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/main.py</url>
-          <line>35</line>
-          <option name="timeStamp" value="1" />
+          <url>file://$PROJECT_DIR$/dataset/clean.py</url>
+          <line>12</line>
+          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -379,47 +384,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/likehood_distribution_60.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/NMF.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="13" column="22" selection-start-line="13" selection-start-column="22" selection-end-line="13" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="90">
-            <caret line="5" column="21" lean-forward="true" selection-start-line="5" selection-start-column="21" selection-end-line="5" selection-end-column="21" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/codecs.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="193">
-          <caret line="308" selection-start-line="308" selection-end-line="308" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/networkx/utils/misc.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="65" selection-start-line="65" selection-end-line="65" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/genericpath.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="277">
-          <caret line="128" selection-start-line="128" selection-end-line="128" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/posixpath.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="313">
@@ -447,19 +411,6 @@
     <entry file="file://$PROJECT_DIR$/dataset/dblp100.txt">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/dataset/contract.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="295">
-          <caret line="60" column="12" selection-start-line="60" selection-start-column="12" selection-end-line="60" selection-end-column="12" />
-          <folding>
-            <element signature="e#110#120#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/likehood_distribution_10.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/likehood_distribution_55.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
@@ -478,19 +429,6 @@
     <entry file="file://$PROJECT_DIR$/likehood_distribution_100.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="159">
-          <caret line="29" column="25" selection-start-line="29" selection-start-column="25" selection-end-line="29" selection-end-column="25" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dataset/output100.txt">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/dataset/dblp_comm20.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="126">
@@ -503,16 +441,6 @@
         <state relative-caret-position="-242098" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Util.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
-          <caret line="29" column="13" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="13" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/likehood_distribution_165.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
@@ -523,12 +451,6 @@
       <provider selected="true" editor-type-id="images" />
     </entry>
     <entry file="file://$PROJECT_DIR$/likehood_distribution_45.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/likehood_distribution_5.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/likehood_distribution_15.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
     <entry file="file://$PROJECT_DIR$/likehood_distribution_25.png">
@@ -595,13 +517,85 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/likehood_distribution_15.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/likehood_distribution_10.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/likehood_distribution_5.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dataset/clean_mapreduce.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-338" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dataset/contract.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1080">
+          <caret line="60" column="12" selection-start-line="60" selection-start-column="12" selection-end-line="60" selection-end-column="12" />
+          <folding>
+            <element signature="e#110#120#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dataset/youtube_comm.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-294427" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dataset/youtube100.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-15442" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dataset/output100.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-395" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dataset/dblp1000.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dataset/clean.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="22" selection-start-line="22" selection-end-line="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dataset/youtube_comm100.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Util.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="20" column="21" lean-forward="true" selection-start-line="20" selection-start-column="21" selection-end-line="20" selection-end-column="21" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="432">
+          <caret line="24" column="45" selection-start-line="24" selection-start-column="45" selection-end-line="24" selection-end-column="45" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/f1score_iter.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
     <entry file="file://$PROJECT_DIR$/BigClam.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="123" column="54" selection-start-line="123" selection-start-column="54" selection-end-line="123" selection-end-column="54" />
+        <state relative-caret-position="1585">
+          <caret line="300" column="84" selection-start-line="300" selection-start-column="84" selection-end-line="300" selection-end-column="84" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>

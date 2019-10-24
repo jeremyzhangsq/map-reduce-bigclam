@@ -40,6 +40,12 @@ def dotproduct(Fu,Fv):
             dp += F1[ele]*F2[ele]
     return dp
 
+def Sum(gradU):
+    N = 0
+    for each in gradU:
+        N += gradU[each]
+    return N
+
 def norm2(gradU):
     N = 0
     for each in gradU:
@@ -54,7 +60,8 @@ def prediction(Fu,Fv,epsilon):
 def getConductance(adjlst, vset, m):
     cut = 0
     vol = 0
-    edge = 2*m if m >= 0 else m
+    edge = m
+    phi = 0
     for v in vset:
         for nghr in adjlst[v]:
             vol += 1
@@ -62,13 +69,15 @@ def getConductance(adjlst, vset, m):
                 cut += 1
     if vol!=edge:
         if 2*vol > edge:
-            return cut/float(edge-vol)
+            phi =  cut/float(edge-vol)
         elif not vol:
-            return 0
+            phi = 0
         else:
-            return cut/float(vol)
+            phi = cut/float(vol)
     else:
-        return 1
+        if vol == edge:
+            phi = 1
+    return phi
 
 def localMinNeig(G):
     maps = {}
@@ -96,40 +105,40 @@ def commInit(G, k):
     for vt, val in lists:
         if vt in vertexs:
             continue
-        vertexs.add(vt)
-        addCom(FMap, vt, cnt, 1)
-        vset = G.list[vt]
+        vset = [i for i in G.list[vt]]
         vset.append(vt)
-        if cnt == k:
-            break
         for v in vset:
             addCom(FMap,v,cnt,1)
             vertexs.add(v)
         cnt += 1
         if cnt >= k:
             break
-
+    if k>cnt:
+        print("{} communities needed to fill randomly".format(k-cnt))
     # random assign some user for no-member community
     for i in range(k):
         val = sumFV[i]
         if not val:
             for idx in range(10):
                 v = random.sample(G.vertex,1)
-                addCom(FMap, v, i, 1)
-
+                addCom(FMap, v, i, random.random())
     return FMap
 
 
 
-def gradientRow(G,FMap,node,cidSet,w,epsilon, RegCoef=10):
+def gradientRow(G,FMap,node,cidSet,w,epsilon, RegCoef):
     preV = {}
     GradU = {}
     for e in G.list[node]:
+        if e == node:
+            continue
         preV[e] = prediction(FMap[node],FMap[e],epsilon)
 
     for cid in cidSet:
         val = 0
         for ngh in G.list[node]:
+            if ngh == node:
+                continue
             cm = getCom(FMap,ngh,cid)
             val += preV[ngh] * cm / (1-preV[ngh])+ w*cm
         val -= w*(sumFV[cid]-getCom(FMap,node,cid))
@@ -149,32 +158,39 @@ def gradientRow(G,FMap,node,cidSet,w,epsilon, RegCoef=10):
             continue
         if abs(val) < 0.0001:
             continue
-        if val < -10:
-            val = -10
-        elif val > 10:
-            val = 10
         GradV[cid]=val
+    for cid in GradV:
+        val = GradV[cid]
+        if val < -10:
+            GradV[cid] = -10
+        elif val > 10:
+            GradV[cid] = 10
 
     return GradV
 
 
-def LikehoodForRow(G, FMap, u, Fu, w, epsilon):
+def LikehoodForRow(G, FMap, u, Fu, w, epsilon,RegCoef):
     L = 0
     for ngh in G.list[u]:
         L += np.log(1-prediction(Fu,FMap[ngh],epsilon)) + w*dotproduct(Fu,FMap[ngh])
     for cid in Fu:
         L -= w*(sumFV[cid]-getCom(FMap,u,cid))*Fu[cid]
+
+    if RegCoef >0:
+        L -= RegCoef*Sum(Fu)
+    else:
+        L += RegCoef*norm2(Fu)
     return L
 
-def Likehood(G,FMap,w,epsilon):
+def Likehood(G,FMap,w,epsilon,RegCoef):
     L = 0
     for u in FMap:
-        L += LikehoodForRow(G,FMap,u,FMap[u],w,epsilon)
+        L += LikehoodForRow(G,FMap,u,FMap[u],w,epsilon,RegCoef)
     return L
 
-def getStepByLinearSearch(u, G, FMap, deltaV, gradV, w, epsilon, stepAlpha, stepBeta, Maxiter = 10):
+def getStepByLinearSearch(u, G, FMap, deltaV, gradV, w, epsilon, stepAlpha, stepBeta, RegCoef, Maxiter = 10):
     stepSize = 1
-    initLikehood = LikehoodForRow(G, FMap, u, FMap[u],w,epsilon)
+    initLikehood = LikehoodForRow(G, FMap, u, FMap[u],w,epsilon,RegCoef)
     newmap = {}
     MinVal = 0
     MaxVal = 1000
@@ -186,7 +202,7 @@ def getStepByLinearSearch(u, G, FMap, deltaV, gradV, w, epsilon, stepAlpha, step
             if newval > MaxVal:
                 newval = MaxVal
             newmap[cid] = newval
-        if LikehoodForRow(G, FMap, u, newmap,w, epsilon) < initLikehood +stepAlpha*stepSize*dotproduct(gradV,deltaV):
+        if LikehoodForRow(G, FMap, u, newmap,w, epsilon,RegCoef) < initLikehood +stepAlpha*stepSize*dotproduct(gradV,deltaV):
             stepSize *=stepBeta
         else:
             break
@@ -206,7 +222,7 @@ def getCommunity(F,delta):
                     C[com].append(user)
     return C
 
-def trainByList(G,truth, k, w, epsilon, alpha, beta, theshold, maxIter):
+def trainByList(G,truth, k, w, epsilon, alpha, beta, theshold, maxIter,RegCoef):
     # F init by local minimal neighborhood
     begin = time.time()
     FMap = commInit(G, k)
@@ -215,6 +231,8 @@ def trainByList(G,truth, k, w, epsilon, alpha, beta, theshold, maxIter):
     delta = np.sqrt(epsilon)
     vertex = [i for i in range(G.n)]
     iter = 0
+    prevIter = 0
+    # todo: check the value of TFlt::Mn
     prevL = -sys.maxsize
     curL = 0
     f1score = []
@@ -227,18 +245,17 @@ def trainByList(G,truth, k, w, epsilon, alpha, beta, theshold, maxIter):
             todel = set()
             for ngh in adjlst[person]:
                 cset = cset.union(set(FMap[ngh].keys()))
-            if not len(cset):
-                continue
             for each in FMap[person]:
                 if each not in cset:
                     todel.add(each)
             for each in todel:
                 delCom(FMap,person,each)
-
-            gradv = gradientRow(G,FMap,person,cset,w,epsilon)
+            if not len(cset):
+                continue
+            gradv = gradientRow(G,FMap,person,cset,w,epsilon,RegCoef)
             if norm2(gradv) < 1e-4:
                 continue
-            learnRate = getStepByLinearSearch(person,G,FMap,gradv,gradv,w, epsilon, alpha,beta)
+            learnRate = getStepByLinearSearch(person,G,FMap,gradv,gradv,w, epsilon, alpha, beta, RegCoef)
             if not learnRate:
                 continue
             for cid in gradv:
@@ -249,7 +266,7 @@ def trainByList(G,truth, k, w, epsilon, alpha, beta, theshold, maxIter):
                 else:
                     addCom(FMap,person,cid,newFuc)
         iter += 1
-        curL = Likehood(G,FMap,w,epsilon)
+        curL = Likehood(G,FMap,w,epsilon,RegCoef)
 
         comm = getCommunity(FMap,delta)
         f1 = Util.f1score(truth,comm)
@@ -281,11 +298,11 @@ def trainByList(G,truth, k, w, epsilon, alpha, beta, theshold, maxIter):
 
 
 
-def bigClam(G, truth, k, alpha=0.05, beta=0.3, theshold=0.005,maxIter=1000):
+def bigClam(G, truth, k, alpha=0.05, beta=0.3, theshold=0.005,maxIter=1000,RegCoef=5):
     epsilon = 10**(-8)  # background edge propability in sec. 4
     w = 1
     delta = np.sqrt(epsilon)  # threshold to determine user-community edge
     N = G.n
-    F = trainByList(G, truth, k, w, epsilon, alpha, beta, theshold, maxIter)
+    F = trainByList(G, truth, k, w, epsilon, alpha, beta, theshold, maxIter,RegCoef)
     C = getCommunity(F,delta)
     return C
