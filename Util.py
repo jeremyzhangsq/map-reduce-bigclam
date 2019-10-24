@@ -3,12 +3,12 @@ from Omega import Omega
 import re
 import sys
 from pyspark import SparkConf, SparkContext
-
+from multiprocessing import Pool
 
 class Graph:
     def __init__(self, filename1, filename2):
-        # self.readNetwork(filename1)
-        self.readNetwork_mapreduce(filename1)
+        self.readNetwork(filename1)
+#         self.readNetwork_mapreduce(filename1)
         self.readCommunity(filename2)
 
     def readNetwork(self, filename):
@@ -134,7 +134,45 @@ def bestMatch(one, all):
     return maxf1
 
 
-def f1score(truth, train):
+# def f1score(truth, train):
+#     """
+#     Quote from WSDM12: We define F1 score to be the average of the F1-score of the best matching ground-truth community
+#     to each detected community, and the F1-score of the best-matching detected community to each ground-truth community
+#     """
+#     truthscore = 0
+#     trainscore = 0
+#     truthNum = len(truth)
+#     trainNum = len(train)
+#     for i in truth:
+#         truthcom = truth[i]
+#         truthscore += bestMatch(truthcom,train)
+#     for j in train:
+#         traincom = train[j]
+#         trainscore += bestMatch(traincom,truth)
+
+#     return 0.5*(trainscore/float(trainNum)+truthscore/float(truthNum))
+
+def get_f1_score_truth(truth, train):
+    truthscore = 0
+    trainscore = 0
+    truthNum = len(truth)
+    trainNum = len(train)
+    for i in truth:
+        truthcom = truth[i]
+        truthscore += bestMatch(truthcom,train)
+    return truthscore
+
+def get_f1_score_train(truth, train):
+    truthscore = 0
+    trainscore = 0
+    truthNum = len(truth)
+    trainNum = len(train)
+    for j in train:
+        traincom = train[j]
+        trainscore += bestMatch(traincom,truth)
+    return trainscore
+
+def f1score(truth, train, n_jobs=10):
     """
     Quote from WSDM12: We define F1 score to be the average of the F1-score of the best matching ground-truth community
     to each detected community, and the F1-score of the best-matching detected community to each ground-truth community
@@ -143,13 +181,29 @@ def f1score(truth, train):
     trainscore = 0
     truthNum = len(truth)
     trainNum = len(train)
-    for i in truth:
-        truthcom = truth[i]
-        truthscore += bestMatch(truthcom,train)
-    for j in train:
-        traincom = train[j]
-        trainscore += bestMatch(traincom,truth)
 
+    truth_list = list(truth.items())
+    truths = [] 
+    lin_range = np.int64(np.linspace(0, truthNum, n_jobs + 1))
+    for i in range(n_jobs):
+        temp = truth_list[lin_range[i]:lin_range[i + 1]]
+        temp = {item[0]: item[1] for item in temp}
+        truths.append(temp)
+    with Pool(n_jobs) as p:
+        scores = p.starmap(get_f1_score_truth, [(t, train) for t in truths])
+    trainscore = sum(scores)
+    
+    train_list = list(train.items())
+    trains = [] 
+    lin_range = np.int64(np.linspace(0, trainNum, n_jobs + 1))
+    for i in range(n_jobs):
+        temp = train_list[lin_range[i]:lin_range[i + 1]]
+        temp = {item[0]: item[1] for item in temp}
+        trains.append(temp)
+    with Pool(n_jobs) as p:
+        scores = p.starmap(get_f1_score_truth, [(truth, t) for t in trains])
+    truthscore = sum(scores)
+    
     return 0.5*(trainscore/float(trainNum)+truthscore/float(truthNum))
 
 
