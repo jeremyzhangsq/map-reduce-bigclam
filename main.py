@@ -42,8 +42,11 @@ if __name__ == '__main__':
     trainComm = {int(k):[int(i) for i in v] for k,v in trainComm.items()}
     print(trainComm)
     # evaluation metrics
+    
+    metric_time = time.time()
     metrics["f1score"] = Util.f1score(realComm, trainComm)
-    metrics["omgIdx"] = Util.omegaIndex(realComm, trainComm)
+    print('f1 score time: {}'.format(time.time() - metric_time))
+#     metrics["omgIdx"] = Util.omegaIndex(realComm, trainComm)
     metrics["accuracy"] = Util.accuracy(realComm, trainComm)
 
     print(metrics)
