@@ -7,7 +7,13 @@ outname = sys.argv[3]
 coutname = sys.argv[4]
 
 file = open(name,"r")
-n,m = file.readline().rstrip("\n").split("\t")
+file.readline()
+file.readline()
+string = file.readline().rstrip("\n").split(" ")
+shape = [int(s) for s in string if s.isdigit()]
+n=shape[0]
+m=shape[1]
+file.readline()
 graph = {}
 maps = {}
 cnt = 0
