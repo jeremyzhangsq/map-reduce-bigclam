@@ -159,8 +159,9 @@ def gradientRow(G,FMap,node,cidSet,w,epsilon, RegCoef):
             if ngh == node:
                 continue
             cm = getCom(FMap,ngh,cid)
-            val += preV[ngh] * cm / (1-preV[ngh])+ w*cm
-        val -= w*(sumFV[cid]-getCom(FMap,node,cid))
+            val = val + (preV[ngh] * cm / (1-preV[ngh])+ w*cm)
+        # todo: used for holdout set
+        # val -= w*(sumFV[cid]-getCom(FMap,node,cid))
         GradU[cid] = val
 
     if RegCoef > 0:
@@ -192,8 +193,9 @@ def LikehoodForRow(G, FMap, u, Fu, w, epsilon,RegCoef):
     L = 0
     for ngh in G.list[u]:
         L += np.log(1-prediction(Fu,FMap[ngh],epsilon)) + w*dotproduct(Fu,FMap[ngh])
-    for cid in Fu:
-        L -= w*(sumFV[cid]-getCom(FMap,u,cid))*Fu[cid]
+    # todo: used for holdout set
+    # for cid in Fu:
+    #     L -= w*(sumFV[cid]-getCom(FMap,u,cid))*Fu[cid]
 
     if RegCoef >0:
         L -= RegCoef*Sum(Fu)
@@ -240,17 +242,23 @@ def getCommunity(F,delta):
         for u in range(len(F)):
             if getCom(F,u,com)>delta:
                 C[com].append(u)
-    return C
+    result = {}
+    for i in C:
+        if C[i]:
+            result[i] = C[i]
+    return result
 
 def trainByList(G, truth, k, w, epsilon, alpha, beta, theshold, maxIter, RegCoef):
     # F init by local minimal neighborhood
     begin = time.time()
+    # delta = np.sqrt(epsilon)
+    delta = np.sqrt(2.0 * G.m / G.n / G.n)
     FMap = commInit(G, k)
     # FMap = randInit(G,k)
-    print("init:{}s".format(time.time()-begin))
+    comm = getCommunity(FMap, delta)
+    f1 = Util.f1score(truth, comm)
+    print("init:{}s f1score:{}".format(time.time() - begin,f1))
     adjlst = G.list
-    # delta = np.sqrt(epsilon)
-    delta = np.sqrt(2.0*G.m/G.n/G.n)
     vertex = [i for i in range(G.n)]
     iter = 0
     prevIter = 0
@@ -261,6 +269,7 @@ def trainByList(G, truth, k, w, epsilon, alpha, beta, theshold, maxIter, RegCoef
     begin = time.time()
     while iter < maxIter:
         random.shuffle(vertex)
+        iter += 1
         for person in vertex:
             cset = set()
             todel = set()
@@ -286,15 +295,13 @@ def trainByList(G, truth, k, w, epsilon, alpha, beta, theshold, maxIter, RegCoef
                     delCom(FMap,person,cid)
                 else:
                     addCom(FMap,person,cid,newFuc)
-        iter += 1
-        curL = Likehood(G,FMap,w,epsilon,RegCoef)
 
+        curL = Likehood(G,FMap,w,epsilon,RegCoef)
         comm = getCommunity(FMap,delta)
         f1 = Util.f1score(truth,comm)
         f1score.append(f1)
         xiter.append(iter)
-        print("iter:{} likelihood:{:.3f} delta:{:.4f} time:{:.3f}s f1score:{:.3f}".format(iter, curL, abs((curL - prevL) / prevL),
-                                                               time.time() - begin,f1))
+        print("iter:{} likelihood:{:.3f} delta:{:.4f} time:{:.3f}s f1score:{:.3f}".format(iter, curL, abs((curL - prevL) / prevL), time.time() - begin,f1))
         if iter%5 == 0:
             llval = []
             for item in FMap:
@@ -319,7 +326,7 @@ def trainByList(G, truth, k, w, epsilon, alpha, beta, theshold, maxIter, RegCoef
 
 
 
-def bigClam(G, truth, k, alpha=0.05, beta=0.5, theshold=0.0001,maxIter=1000,RegCoef=10):
+def bigClam(G, truth, k, alpha=0.05, beta=0.3, theshold=0.001,maxIter=1000,RegCoef=1):
     epsilon = 10**(-8)  # background edge propability in sec. 4
     w = 1
     # delta = np.sqrt(epsilon)  # threshold to determine user-community edge

@@ -127,13 +127,27 @@ def bestMatch(one, all):
     for each in all:
         com2 = all[each]
         score = F1(one,com2)
+        if not score:
+            continue
         if score>maxf1:
             maxf1 = score
         if maxf1==1:
             return maxf1
     return maxf1
 
-
+def avgCommNum(realComm):
+    userCom = {}
+    for com in realComm:
+        for user in realComm[com]:
+            if user not in userCom:
+                userCom[user] = [com]
+            else:
+                userCom[user].append(com)
+    avgcom = 0
+    for u in userCom:
+        avgcom += len(userCom[u])
+    avgcom /= float(len(userCom))
+    return avgcom
 # def f1score(truth, train):
 #     """
 #     Quote from WSDM12: We define F1 score to be the average of the F1-score of the best matching ground-truth community
@@ -149,7 +163,6 @@ def bestMatch(one, all):
 #     for j in train:
 #         traincom = train[j]
 #         trainscore += bestMatch(traincom,truth)
-
 #     return 0.5*(trainscore/float(trainNum)+truthscore/float(truthNum))
 
 def get_f1_score_truth(truth, train):
@@ -183,7 +196,7 @@ def f1score(truth, train, n_jobs=10):
     trainNum = len(train)
 
     truth_list = list(truth.items())
-    truths = [] 
+    truths = []
     lin_range = np.int64(np.linspace(0, truthNum, n_jobs + 1))
     for i in range(n_jobs):
         temp = truth_list[lin_range[i]:lin_range[i + 1]]
@@ -192,9 +205,9 @@ def f1score(truth, train, n_jobs=10):
     with Pool(n_jobs) as p:
         scores = p.starmap(get_f1_score_truth, [(t, train) for t in truths])
     trainscore = sum(scores)
-    
+
     train_list = list(train.items())
-    trains = [] 
+    trains = []
     lin_range = np.int64(np.linspace(0, trainNum, n_jobs + 1))
     for i in range(n_jobs):
         temp = train_list[lin_range[i]:lin_range[i + 1]]
@@ -203,7 +216,7 @@ def f1score(truth, train, n_jobs=10):
     with Pool(n_jobs) as p:
         scores = p.starmap(get_f1_score_truth, [(truth, t) for t in trains])
     truthscore = sum(scores)
-    
+
     return 0.5*(trainscore/float(trainNum)+truthscore/float(truthNum))
 
 

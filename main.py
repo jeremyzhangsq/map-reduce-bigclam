@@ -24,6 +24,8 @@ if __name__ == '__main__':
     metrics["algorithm"] = algorithm
     metrics["readTime"] = time.time() - start
     realComm = graph.community
+    # avarage number of communities per user
+    avgnum = Util.avgCommNum(realComm)
     # main algorithm
     start = time.time()
     if algorithm == 'bigclam':
