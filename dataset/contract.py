@@ -21,6 +21,7 @@ for line in com.readlines():
     all.append(l)
 com.close()
 
+# random select k communities
 for i in range(k):
     idx = random.randrange(len(all))
     l = all.pop(idx)
