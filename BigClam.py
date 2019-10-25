@@ -232,28 +232,29 @@ def getStepByLinearSearch(u, G, FMap, deltaV, gradV, w, epsilon, stepAlpha, step
 
 def getCommunity(F,delta):
     C = {}
-    for user in F:
-        for com in F[user]:
-            if F[user][com] > delta:
-                if com not in C:
-                    C[com] = [user]
-                else:
-                    C[com].append(user)
+    for i in range(len(sumFV)):
+        C[i]=list()
+    for com in range(len(sumFV)):
+        if sumFV[com]<delta:
+            continue
+        for u in range(len(F)):
+            if getCom(F,u,com)>delta:
+                C[com].append(u)
     return C
 
 def trainByList(G, truth, k, w, epsilon, alpha, beta, theshold, maxIter, RegCoef):
     # F init by local minimal neighborhood
     begin = time.time()
-    # FMap = commInit(G, k)
-    FMap = randInit(G,k)
+    FMap = commInit(G, k)
+    # FMap = randInit(G,k)
     print("init:{}s".format(time.time()-begin))
     adjlst = G.list
-    delta = np.sqrt(epsilon)
+    # delta = np.sqrt(epsilon)
+    delta = np.sqrt(2.0*G.m/G.n/G.n)
     vertex = [i for i in range(G.n)]
     iter = 0
     prevIter = 0
-    # todo: check the value of TFlt::Mn
-    prevL = -sys.maxsize
+    prevL = -1.79769e+308
     curL = 0
     f1score = []
     xiter = []
@@ -318,11 +319,11 @@ def trainByList(G, truth, k, w, epsilon, alpha, beta, theshold, maxIter, RegCoef
 
 
 
-def bigClam(G, truth, k, alpha=0.05, beta=0.3, theshold=0.005,maxIter=1000,RegCoef=10):
+def bigClam(G, truth, k, alpha=0.05, beta=0.5, theshold=0.0001,maxIter=1000,RegCoef=10):
     epsilon = 10**(-8)  # background edge propability in sec. 4
     w = 1
-    delta = np.sqrt(epsilon)  # threshold to determine user-community edge
-    N = G.n
+    # delta = np.sqrt(epsilon)  # threshold to determine user-community edge
+    delta = np.sqrt(2.0 * G.m / G.n / G.n)
     F = trainByList(G, truth, k, w, epsilon, alpha, beta, theshold, maxIter,RegCoef)
     C = getCommunity(F,delta)
     return C

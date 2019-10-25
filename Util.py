@@ -102,7 +102,7 @@ def outputCommunity(metrics,community,file):
     out.write("{}\n".format(metrics["readTime"]))
     out.write("{}\n".format(metrics["execTime"]))
     out.write("{}\n".format(metrics["f1score"]))
-    out.write("{}\n".format(metrics["omgIdx"]))
+    # out.write("{}\n".format(metrics["omgIdx"]))
     out.write("{}\n".format(metrics["accuracy"]))
     for i in community:
         s = ""
