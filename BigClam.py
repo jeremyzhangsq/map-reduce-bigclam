@@ -69,7 +69,7 @@ def getConductance(adjlst, vset, m):
                 cut += 1
     if vol!=edge:
         if 2*vol > edge:
-            phi =  cut/float(edge-vol)
+            phi = cut/float(edge-vol)
         elif not vol:
             phi = 0
         else:
@@ -124,6 +124,25 @@ def commInit(G, k):
                 addCom(FMap, v, i, random.random())
     return FMap
 
+def randInit(G,k):
+    global sumFV
+    sumFV = [0 for i in range(k)]
+    FMap = {}
+    for i in range(G.n):
+        FMap[i] = dict()
+    for node in FMap:
+        mem = len(G.list[node])
+        if mem > 10:
+            mem = 10
+        for c in range(mem):
+            cid = random.randrange(0,k)
+            addCom(FMap,node,cid,random.random())
+
+    for i in range(len(sumFV)):
+        if not sumFV[i]:
+            v = random.sample(G.vertex, 1)
+            addCom(FMap, v, i, random.random())
+    return FMap
 
 
 def gradientRow(G,FMap,node,cidSet,w,epsilon, RegCoef):
@@ -222,10 +241,11 @@ def getCommunity(F,delta):
                     C[com].append(user)
     return C
 
-def trainByList(G,truth, k, w, epsilon, alpha, beta, theshold, maxIter,RegCoef):
+def trainByList(G, truth, k, w, epsilon, alpha, beta, theshold, maxIter, RegCoef):
     # F init by local minimal neighborhood
     begin = time.time()
-    FMap = commInit(G, k)
+    # FMap = commInit(G, k)
+    FMap = randInit(G,k)
     print("init:{}s".format(time.time()-begin))
     adjlst = G.list
     delta = np.sqrt(epsilon)
@@ -298,7 +318,7 @@ def trainByList(G,truth, k, w, epsilon, alpha, beta, theshold, maxIter,RegCoef):
 
 
 
-def bigClam(G, truth, k, alpha=0.05, beta=0.3, theshold=0.005,maxIter=1000,RegCoef=5):
+def bigClam(G, truth, k, alpha=0.05, beta=0.3, theshold=0.005,maxIter=1000,RegCoef=10):
     epsilon = 10**(-8)  # background edge propability in sec. 4
     w = 1
     delta = np.sqrt(epsilon)  # threshold to determine user-community edge
