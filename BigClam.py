@@ -299,9 +299,10 @@ def trainByList(G, truth, k, w, epsilon, alpha, beta, theshold, maxIter, RegCoef
         curL = Likehood(G,FMap,w,epsilon,RegCoef)
         comm = getCommunity(FMap,delta)
         f1 = Util.f1score(truth,comm)
+        avgnum = Util.avgCommNum(comm)
         f1score.append(f1)
         xiter.append(iter)
-        print("iter:{} likelihood:{:.3f} delta:{:.4f} time:{:.3f}s f1score:{:.3f}".format(iter, curL, abs((curL - prevL) / prevL), time.time() - begin,f1))
+        print("iter:{} likelihood:{:.3f} delta:{:.4f} time:{:.3f}s f1score:{:.3f} avgcomm:{}".format(iter, curL, abs((curL - prevL) / prevL), time.time() - begin,f1,avgnum))
         if iter%5 == 0:
             llval = []
             for item in FMap:

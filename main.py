@@ -26,6 +26,7 @@ if __name__ == '__main__':
     realComm = graph.community
     # avarage number of communities per user
     avgnum = Util.avgCommNum(realComm)
+    print("Average community per user:{}".format(avgnum))
     # main algorithm
     start = time.time()
     if algorithm == 'bigclam':
