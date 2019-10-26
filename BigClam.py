@@ -121,7 +121,7 @@ def commInit(G, k):
         val = sumFV[i]
         if not val:
             for idx in range(10):
-                v = random.sample(G.vertex,1)
+                v = random.sample(G.vertex,1)[0]
                 addCom(FMap, v, i, random.random())
     return FMap
 
@@ -141,17 +141,17 @@ def randInit(G,k):
 
     for i in range(len(sumFV)):
         if not sumFV[i]:
-            v = random.sample(G.vertex, 1)
+            v = random.sample(G.vertex, 1)[0]
             addCom(FMap, v, i, random.random())
     return FMap
 
-def cpmInit(ufile,G,k):
+def cpmInit(G,k):
     global sumFV
     sumFV = [0 for i in range(k)]
     FMap = {}
     for i in range(G.n):
         FMap[i] = dict()
-    trainComm = CPM.CPM(ufile, k)
+    trainComm = CPM.CPM(G, k)
     cnt = 0
     while cnt<k:
         for com in trainComm:
@@ -165,12 +165,12 @@ def cpmInit(ufile,G,k):
     if k > cnt:
         print("{} communities needed to fill randomly".format(k - cnt))
     # random assign some user for no-member community
-    for i in range(k):
-        val = sumFV[i]
-        if not val:
-            for idx in range(10):
-                v = random.sample(G.vertex,1)
-                addCom(FMap, v, i, random.random())
+    # for i in range(k):
+    #     val = sumFV[i]
+    #     if not val:
+    #         for idx in range(10):
+    #             v = random.sample(G.vertex,1)[0]
+    #             addCom(FMap, v, i, random.random())
     return FMap
 
 
@@ -280,9 +280,9 @@ def getCommunity(F,delta):
 def trainByList(G, truth, k, delta, w, epsilon, alpha, beta, theshold, maxIter, RegCoef):
     # F init by local minimal neighborhood
     begin = time.time()
-    FMap = commInit(G, k)
+    # FMap = commInit(G, k)
     # FMap = randInit(G,k)
-    # FMap = cpmInit(ufile,G,k)
+    FMap = cpmInit(G,k)
     comm = getCommunity(FMap, delta)
     f1 = Util.f1score(truth, comm)
     print("init:{}s f1score:{}".format(time.time() - begin,f1))
@@ -356,7 +356,7 @@ def trainByList(G, truth, k, delta, w, epsilon, alpha, beta, theshold, maxIter, 
 
 
 
-def bigClam(G, truth, k, delta, alpha=0.05, beta=0.3, theshold=0.001,maxIter=1000,RegCoef=100):
+def bigClam(G, truth, k, delta, alpha=0.05, beta=0.3, theshold=0.001,maxIter=1000,RegCoef=1):
     epsilon = 10**(-8)  # background edge propability in sec. 4
     w = 1
     F = trainByList(G, truth, k, delta, w, epsilon, alpha, beta, theshold, maxIter, RegCoef)

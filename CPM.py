@@ -51,7 +51,7 @@ def get_adjacent_cliques(clique, membership_dict):
 
 def get_fast_percolated_cliques(G, k):
     print("\n\n Starting Clique Finding for size " + str(k))
-    cliques = [frozenset(c) for c in find_cliques(G) if len(c) >= k]
+    cliques = [frozenset(c) for c in find_cliques(G.list) if len(c) >= k]
 
     print("Cliques found.")
     nodesToCliquesDict = defaultdict(list)
@@ -99,11 +99,10 @@ def get_fast_percolated_cliques(G, k):
     print("Node Components Assigned. ")
     return componentToNodes.values()
 
-def CPM(Ipfile, k):
+def CPM(G, k):
     k = 1
     trainComm = {}
     commNum = 0
-    G = nx.read_edgelist(Ipfile, nodetype=str, delimiter="\t")
     for c in get_fast_percolated_cliques(G, k):
         list_c = list(c)
         trainComm[commNum] = list_c

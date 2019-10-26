@@ -39,7 +39,7 @@ if __name__ == '__main__':
     elif algorithm == 'lc':
         trainComm = LC(graph, k)
     elif algorithm == 'cpm':
-        trainComm = CPM(ufile, k)
+        trainComm = CPM(graph, k)
     else:
         print("invalid algorithm")
         exit(-1)
