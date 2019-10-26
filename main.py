@@ -2,6 +2,7 @@ import sys
 import time
 import Util
 from CPM import CPM
+import numpy as np
 # from LC import LC
 from BigClam import bigClam
 from NMF import NMF
@@ -21,6 +22,8 @@ if __name__ == '__main__':
     # load two matrix
     start = time.time()
     graph = Util.Graph(ufile,cfile)
+    # delta = np.sqrt(epsilon)  # threshold to determine user-community edge
+    delta = np.sqrt(2.0 * graph.m / graph.n / graph.n)
     metrics["algorithm"] = algorithm
     metrics["readTime"] = time.time() - start
     realComm = graph.community
@@ -30,7 +33,7 @@ if __name__ == '__main__':
     # main algorithm
     start = time.time()
     if algorithm == 'bigclam':
-        trainComm = bigClam(graph, realComm, k)
+        trainComm = bigClam(graph, realComm, k,delta)
     elif algorithm == 'nmf':
         trainComm = NMF(graph, k)
     elif algorithm == 'lc':

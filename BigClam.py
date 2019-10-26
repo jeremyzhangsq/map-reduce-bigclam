@@ -248,11 +248,9 @@ def getCommunity(F,delta):
             result[i] = C[i]
     return result
 
-def trainByList(G, truth, k, w, epsilon, alpha, beta, theshold, maxIter, RegCoef):
+def trainByList(G, truth, k, delta, w, epsilon, alpha, beta, theshold, maxIter, RegCoef):
     # F init by local minimal neighborhood
     begin = time.time()
-    # delta = np.sqrt(epsilon)
-    delta = np.sqrt(2.0 * G.m / G.n / G.n)
     FMap = commInit(G, k)
     # FMap = randInit(G,k)
     comm = getCommunity(FMap, delta)
@@ -269,6 +267,7 @@ def trainByList(G, truth, k, w, epsilon, alpha, beta, theshold, maxIter, RegCoef
     begin = time.time()
     while iter < maxIter:
         random.shuffle(vertex)
+        reg = RegCoef
         iter += 1
         for person in vertex:
             cset = set()
@@ -282,10 +281,10 @@ def trainByList(G, truth, k, w, epsilon, alpha, beta, theshold, maxIter, RegCoef
                 delCom(FMap,person,each)
             if not len(cset):
                 continue
-            gradv = gradientRow(G,FMap,person,cset,w,epsilon,RegCoef)
+            gradv = gradientRow(G,FMap,person,cset,w,epsilon,reg)
             if norm2(gradv) < 1e-4:
                 continue
-            learnRate = getStepByLinearSearch(person,G,FMap,gradv,gradv,w, epsilon, alpha, beta, RegCoef)
+            learnRate = getStepByLinearSearch(person,G,FMap,gradv,gradv,w, epsilon, alpha, beta, reg)
             if not learnRate:
                 continue
             for cid in gradv:
@@ -296,7 +295,7 @@ def trainByList(G, truth, k, w, epsilon, alpha, beta, theshold, maxIter, RegCoef
                 else:
                     addCom(FMap,person,cid,newFuc)
 
-        curL = Likehood(G,FMap,w,epsilon,RegCoef)
+        curL = Likehood(G,FMap,w,epsilon,reg)
         comm = getCommunity(FMap,delta)
         f1 = Util.f1score(truth,comm)
         avgnum = Util.avgCommNum(comm)
@@ -327,11 +326,9 @@ def trainByList(G, truth, k, w, epsilon, alpha, beta, theshold, maxIter, RegCoef
 
 
 
-def bigClam(G, truth, k, alpha=0.05, beta=0.3, theshold=0.001,maxIter=1000,RegCoef=1):
+def bigClam(G, truth, k, delta, alpha=0.05, beta=0.3, theshold=0.001,maxIter=1000,RegCoef=100):
     epsilon = 10**(-8)  # background edge propability in sec. 4
     w = 1
-    # delta = np.sqrt(epsilon)  # threshold to determine user-community edge
-    delta = np.sqrt(2.0 * G.m / G.n / G.n)
-    F = trainByList(G, truth, k, w, epsilon, alpha, beta, theshold, maxIter,RegCoef)
+    F = trainByList(G, truth, k, delta, w, epsilon, alpha, beta, theshold, maxIter, RegCoef)
     C = getCommunity(F,delta)
     return C
