@@ -5,6 +5,7 @@ import time
 import sys
 import seaborn as sns
 import Util
+import CPM
 import matplotlib.pyplot as plt
 sumFV = []
 
@@ -144,6 +145,34 @@ def randInit(G,k):
             addCom(FMap, v, i, random.random())
     return FMap
 
+def cpmInit(ufile,G,k):
+    global sumFV
+    sumFV = [0 for i in range(k)]
+    FMap = {}
+    for i in range(G.n):
+        FMap[i] = dict()
+    trainComm = CPM.CPM(ufile, k)
+    cnt = 0
+    while cnt<k:
+        for com in trainComm:
+            for user in trainComm[com]:
+                v = int(user)
+                # todo: change original vertex number
+                addCom(FMap, v, com, 1)
+            cnt+=1
+        if cnt<k:
+            break
+    if k > cnt:
+        print("{} communities needed to fill randomly".format(k - cnt))
+    # random assign some user for no-member community
+    for i in range(k):
+        val = sumFV[i]
+        if not val:
+            for idx in range(10):
+                v = random.sample(G.vertex,1)
+                addCom(FMap, v, i, random.random())
+    return FMap
+
 
 def gradientRow(G,FMap,node,cidSet,w,epsilon, RegCoef):
     preV = {}
@@ -253,6 +282,7 @@ def trainByList(G, truth, k, delta, w, epsilon, alpha, beta, theshold, maxIter, 
     begin = time.time()
     FMap = commInit(G, k)
     # FMap = randInit(G,k)
+    # FMap = cpmInit(ufile,G,k)
     comm = getCommunity(FMap, delta)
     f1 = Util.f1score(truth, comm)
     print("init:{}s f1score:{}".format(time.time() - begin,f1))
