@@ -100,7 +100,7 @@ def get_fast_percolated_cliques(G, k):
     return componentToNodes.values()
 
 def CPM(G, k):
-    k = 1
+    k = 5
     trainComm = {}
     commNum = 0
     for c in get_fast_percolated_cliques(G, k):

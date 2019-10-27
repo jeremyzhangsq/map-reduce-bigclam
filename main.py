@@ -11,17 +11,18 @@ from NMF import NMF
 if __name__ == '__main__':
 
     # input params
-    ufile = sys.argv[1] # network filename
-    cfile = sys.argv[2] # ground truth community filename
-    algorithm = sys.argv[3] # select an algorithm. option: bigclam, nmf, lc, cpm
-    k = int(sys.argv[4]) # number of community to detect
-    output = sys.argv[5] # output filename
+    ufile = sys.argv[1]  # network filename
+    cfile = sys.argv[2]  # ground truth community filename
+    # select an algorithm. option: bigclam, nmf, lc, cpm
+    algorithm = sys.argv[3]
+    k = int(sys.argv[4])  # number of community to detect
+    output = sys.argv[5]  # output filename
 
     metrics = dict()
 
     # load two matrix
     start = time.time()
-    graph = Util.Graph(ufile,cfile)
+    graph = Util.Graph(ufile, cfile)
     # delta = np.sqrt(epsilon)  # threshold to determine user-community edge
     delta = np.sqrt(2.0 * graph.m / graph.n / graph.n)
     metrics["algorithm"] = algorithm
@@ -33,7 +34,7 @@ if __name__ == '__main__':
     # main algorithm
     start = time.time()
     if algorithm == 'bigclam':
-        trainComm = bigClam(graph, realComm, k,delta)
+        trainComm = bigClam(graph, realComm, k, delta)
     elif algorithm == 'nmf':
         trainComm = NMF(graph, k)
     elif algorithm == 'lc':
@@ -45,10 +46,10 @@ if __name__ == '__main__':
         exit(-1)
     metrics["execTime"] = time.time() - start
 
-    trainComm = {int(k):[int(i) for i in v] for k,v in trainComm.items()}
+    trainComm = {int(k): [int(i) for i in v] for k, v in trainComm.items()}
     print(trainComm)
     # evaluation metrics
-    
+
     metric_time = time.time()
     metrics["f1score"] = Util.f1score(realComm, trainComm)
     print('f1 score time: {}'.format(time.time() - metric_time))
@@ -57,4 +58,4 @@ if __name__ == '__main__':
 
     print(metrics)
     # output figure and metrics
-    Util.outputCommunity(metrics,trainComm,output)
+    Util.outputCommunity(metrics, trainComm, output)
