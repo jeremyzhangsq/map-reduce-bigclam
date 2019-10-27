@@ -268,35 +268,6 @@ def LikehoodForRow(G, FMap, u, Fu, w, epsilon, RegCoef):
         L += RegCoef*norm2(Fu)
     return L
 
-# def get_likelihood(G, FMap, u, Fu, w, epsilon):
-#     L = 0
-#     for ngh in G:
-#         L += np.log(1-prediction(Fu,FMap[ngh],epsilon)) + w*dotproduct(Fu,FMap[ngh])
-#     return L
-
-
-# def LikehoodForRow(G, FMap, u, Fu, w, epsilon, RegCoef, n_jobs=5):
-#     L = 0
-
-#     G_map = G.list[u]
-#     GMap_list = G_map
-#     GMaps = []
-#     print(len(GMap_list))
-#     lin_range = np.int64(np.linspace(0, len(GMap_list), n_jobs + 1))
-#     for i in range(n_jobs):
-#         temp = GMap_list[lin_range[i]:lin_range[i + 1]]
-#         GMaps.append(temp)
-
-#     with Pool(n_jobs) as p:
-#         likelihoods = p.starmap(get_likelihood, [(g, FMap, u, Fu, w, epsilon) for g in GMaps])
-#     L = sum(likelihoods)
-
-#     if RegCoef >0:
-#         L -= RegCoef*Sum(Fu)
-#     else:
-#         L += RegCoef*norm2(Fu)
-#     return L
-
 
 def Likehood(G, FMap, w, epsilon, RegCoef, n_jobs=5):
     L = 0
@@ -304,36 +275,6 @@ def Likehood(G, FMap, w, epsilon, RegCoef, n_jobs=5):
         L += LikehoodForRow(G, FMap, u, FMap[u], w, epsilon, RegCoef)
     return L
 
-
-# def get_likelihood(G, f, FMap, w, epsilon, RegCoef):
-#     def get_by_row(G, f, FMap, u, Fu, w, epsilon, RegCoef):
-#         L1 = 0
-#         for ngh in G[u]:
-#             L1 += np.log(1-prediction(Fu,FMap[ngh],epsilon)) + w*dotproduct(Fu,FMap[ngh])
-#         if RegCoef >0:
-#             L1 -= RegCoef*Sum(Fu)
-#         else:
-#             L1 += RegCoef*norm2(Fu)
-#         return L1
-#     L = 0
-#     for u in f:
-#         L += get_by_row(G, f, FMap, u, FMap[u], w, epsilon, RegCoef)
-#     return L
-
-# def Likehood(G, FMap, w, epsilon, RegCoef, n_jobs=5):
-#     L = 0
-#     FMap_list = list(FMap.items())
-#     FMaps = []
-#     lin_range = np.int64(np.linspace(0, len(FMap_list), n_jobs + 1))
-#     for i in range(n_jobs):
-#         temp = FMap_list[lin_range[i]:lin_range[i + 1]]
-#         temp = {item[0]: item[1] for item in temp}
-#         FMaps.append(temp)
-
-#     with Pool(n_jobs) as p:
-#         likelihoods = p.starmap(get_likelihood, [(G.list, f, FMap, w, epsilon, RegCoef) for f in FMaps])
-#     L = sum(likelihoods)
-#     return L
 
 def getStepByLinearSearch(u, G, FMap, deltaV, gradV, w, epsilon, stepAlpha, stepBeta, RegCoef, Maxiter=10):
     stepSize = 1
@@ -410,7 +351,7 @@ def trainByList(G, truth, k, delta, w, epsilon, alpha, beta, theshold, maxIter, 
     # F init by local minimal neighborhood
     begin = time.time()
     # FMap = commInit(G, k)
-    FMap = randInit(G,k)
+    FMap = randInit(G, k)
     # FMap = cpmInit(G, k)
     comm = getCommunity(FMap, delta)
     f1 = Util.f1score(truth, comm)
@@ -429,43 +370,45 @@ def trainByList(G, truth, k, delta, w, epsilon, alpha, beta, theshold, maxIter, 
         reg = RegCoef
         iter += 1
 
-        vertexs = []
-        lin_range = np.int64(np.linspace(0, len(vertex), n_jobs + 1))
-        for i in range(n_jobs):
-            temp = vertex[lin_range[i]:lin_range[i + 1]]
-            vertexs.append(temp)
-        with Pool(n_jobs) as p:
-            FMaps = p.starmap(get_vertex, [
-                              (v, adjlst, FMap, alpha, beta, w, epsilon, RegCoef) for v in vertexs])
-        FMap = {}
-        for f in FMaps:
-            FMap.update(f)
-
-#         for person in vertex:
-#             cset = set()
-#             todel = set()
-#             for ngh in adjlst[person]:
-#                 cset = cset.union(set(FMap[ngh].keys()))
-#             for each in FMap[person]:
-#                 if each not in cset:
-#                     todel.add(each)
-#             for each in todel:
-#                 delCom(FMap,person,each)
-#             if not len(cset):
-#                 continue
-#             gradv = gradientRow(G,FMap,person,cset,w,epsilon,RegCoef)
-#             if norm2(gradv) < 1e-4:
-#                 continue
-#             learnRate = getStepByLinearSearch(person,G,FMap,gradv,gradv,w, epsilon, alpha, beta, RegCoef)
-#             if not learnRate:
-#                 continue
-#             for cid in gradv:
-#                 change = learnRate*gradv[cid]
-#                 newFuc = getCom(FMap,person,cid)+change
-#                 if newFuc <= 0:
-#                     delCom(FMap,person,cid)
-#                 else:
-#                     addCom(FMap,person,cid,newFuc)
+        if n_jobs > 0:
+            vertexs = []
+            lin_range = np.int64(np.linspace(0, len(vertex), n_jobs + 1))
+            for i in range(n_jobs):
+                temp = vertex[lin_range[i]:lin_range[i + 1]]
+                vertexs.append(temp)
+            with Pool(n_jobs) as p:
+                FMaps = p.starmap(get_vertex, [
+                    (v, adjlst, FMap, alpha, beta, w, epsilon, RegCoef) for v in vertexs])
+            FMap = {}
+            for f in FMaps:
+                FMap.update(f)
+        else:
+            for person in vertex:
+                cset = set()
+                todel = set()
+                for ngh in adjlst[person]:
+                    cset = cset.union(set(FMap[ngh].keys()))
+                for each in FMap[person]:
+                    if each not in cset:
+                        todel.add(each)
+                for each in todel:
+                    delCom(FMap, person, each)
+                if not len(cset):
+                    continue
+                gradv = gradientRow(adjlst, FMap, person, cset, w, epsilon, RegCoef)
+                if norm2(gradv) < 1e-4:
+                    continue
+                learnRate = getStepByLinearSearch(
+                    person, adjlst, FMap, gradv, gradv, w, epsilon, alpha, beta, RegCoef)
+                if not learnRate:
+                    continue
+                for cid in gradv:
+                    change = learnRate*gradv[cid]
+                    newFuc = getCom(FMap, person, cid)+change
+                    if newFuc <= 0:
+                        delCom(FMap, person, cid)
+                    else:
+                        addCom(FMap, person, cid, newFuc)
 
         curL = Likehood(G.list, FMap, w, epsilon, RegCoef)
         comm = getCommunity(FMap, delta)
@@ -501,7 +444,8 @@ def trainByList(G, truth, k, delta, w, epsilon, alpha, beta, theshold, maxIter, 
 def bigClam(G, truth, k, delta, alpha=0.05, beta=0.3, theshold=0.001, maxIter=1000, RegCoef=1):
     epsilon = 10**(-8)  # background edge propability in sec. 4
     w = 1
+    n_jobs = 10
     F = trainByList(G, truth, k, delta, w, epsilon, alpha,
-                    beta, theshold, maxIter, RegCoef)
+                    beta, theshold, maxIter, RegCoef, n_jobs)
     C = getCommunity(F, delta)
     return C
