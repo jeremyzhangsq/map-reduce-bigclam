@@ -204,7 +204,7 @@ def f1score(truth, train, n_jobs=10):
         truths.append(temp)
     with Pool(n_jobs) as p:
         scores = p.starmap(get_f1_score_truth, [(t, train) for t in truths])
-    trainscore = sum(scores)
+    truthscore = sum(scores)
 
     train_list = list(train.items())
     trains = []
@@ -215,7 +215,8 @@ def f1score(truth, train, n_jobs=10):
         trains.append(temp)
     with Pool(n_jobs) as p:
         scores = p.starmap(get_f1_score_truth, [(truth, t) for t in trains])
-    truthscore = sum(scores)
+    trainscore = sum(scores)
+
 
     return 0.5*(trainscore/float(trainNum)+truthscore/float(truthNum))
 

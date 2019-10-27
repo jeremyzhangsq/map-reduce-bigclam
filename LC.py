@@ -170,6 +170,7 @@ def write_edge2cid(e2c, filename, delimiter="\t"):
     # g.close()
     return trainComm
 
+
 def LC(G, k):
     delimiter = '\t'
 
@@ -180,10 +181,9 @@ def LC(G, k):
         adj[str(k)] = set(list(map(str, v)))
 
     edges = set()
-    for i in range(G.n):
-        for j in range(G.n):
-            if G.matrix[i][j]==1:
-                edges.add((str(i), str(j)))
+    for key in G.list.keys():
+        for val in G.list[key]:
+            edges.add((str(key), str(val)))
     k = 5
     # run the method:
     edge2cid, S_max, D_max, list_D = HLC(adj, edges).single_linkage(k=k)

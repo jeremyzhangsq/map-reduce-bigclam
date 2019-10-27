@@ -3,7 +3,7 @@ import time
 import Util
 from CPM import CPM
 import numpy as np
-# from LC import LC
+from LC import LC
 from BigClam import bigClam
 from NMF import NMF
 
