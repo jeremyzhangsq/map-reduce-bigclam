@@ -23,8 +23,9 @@ if __name__ == '__main__':
     # load two matrix
     start = time.time()
     graph = Util.Graph(ufile, cfile)
-    # delta = np.sqrt(epsilon)  # threshold to determine user-community edge
-    delta = np.sqrt(2.0 * graph.m / graph.n / graph.n)
+    epsilon = 10 ** (-8)  # background edge propability in sec. 4
+    delta = np.sqrt(epsilon)  # threshold to determine user-community edge
+    # delta = np.sqrt(2.0 * graph.m / graph.n / graph.n)
     metrics["algorithm"] = algorithm
     metrics["readTime"] = time.time() - start
     realComm = graph.community

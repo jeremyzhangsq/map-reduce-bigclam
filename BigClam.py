@@ -350,8 +350,8 @@ def get_vertex(vertex, adjlst, FMap, alpha, beta, w, epsilon, RegCoef):
 def trainByList(G, truth, k, delta, w, epsilon, alpha, beta, theshold, maxIter, RegCoef, n_jobs=10):
     # F init by local minimal neighborhood
     begin = time.time()
-    # FMap = commInit(G, k)
-    FMap = randInit(G, k)
+    FMap = commInit(G, k)
+    # FMap = randInit(G, k)
     # FMap = cpmInit(G, k)
     comm = getCommunity(FMap, delta)
     f1 = Util.f1score(truth, comm)
@@ -441,7 +441,7 @@ def trainByList(G, truth, k, delta, w, epsilon, alpha, beta, theshold, maxIter, 
     return FMap
 
 
-def bigClam(G, truth, k, delta, alpha=0.05, beta=0.3, theshold=0.001, maxIter=1000, RegCoef=1):
+def bigClam(G, truth, k, delta, alpha=0.05, beta=0.3, theshold=0.001, maxIter=1000, RegCoef=5):
     epsilon = 10**(-8)  # background edge propability in sec. 4
     w = 1
     n_jobs = 10
