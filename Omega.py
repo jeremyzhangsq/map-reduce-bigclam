@@ -48,18 +48,17 @@ class Omega:
     def observed(self):
         N = 0
         tuples1 = {}
+        tuples2 = {}
         J = 0
+        K = 0
         for u, v in combinations(self.nodes, 2):
             N += 1
             n = self.num_of_common_clusters(u, v, self.nodes1)
             tuples1[(u, v)] = self.num_of_common_clusters(u, v, self.nodes1)
-            J = n if n > J else J
-        tuples2 = {}
-        K = 0
-        for u, v in combinations(self.nodes, 2):
-            n = self.num_of_common_clusters(u, v, self.nodes2)
             tuples2[(u, v)] = self.num_of_common_clusters(u, v, self.nodes2)
+            J = n if n > J else J
             K = n if n > K else K
+        
         obs = 0
         A = {j: 0 for j in range(min(J, K)+1)}
         for (u, v), n in tuples1.items():

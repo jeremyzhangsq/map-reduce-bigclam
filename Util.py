@@ -167,19 +167,13 @@ def avgCommNum(realComm):
 
 def get_f1_score_truth(truth, train):
     truthscore = 0
-    trainscore = 0
-    truthNum = len(truth)
-    trainNum = len(train)
     for i in truth:
         truthcom = truth[i]
         truthscore += bestMatch(truthcom,train)
     return truthscore
 
 def get_f1_score_train(truth, train):
-    truthscore = 0
     trainscore = 0
-    truthNum = len(truth)
-    trainNum = len(train)
     for j in train:
         traincom = train[j]
         trainscore += bestMatch(traincom,truth)
@@ -216,7 +210,6 @@ def f1score(truth, train, n_jobs=10):
     with Pool(n_jobs) as p:
         scores = p.starmap(get_f1_score_truth, [(truth, t) for t in trains])
     trainscore = sum(scores)
-
 
     return 0.5*(trainscore/float(trainNum)+truthscore/float(truthNum))
 
