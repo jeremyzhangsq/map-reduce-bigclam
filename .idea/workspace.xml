@@ -3,9 +3,47 @@
   <component name="ChangeListManager">
     <list default="true" id="ae63dbb4-9b6c-47f4-b91b-70a6610cb4e9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BigClam.py" beforeDir="false" afterPath="$PROJECT_DIR$/BigClam.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/f_kde10.png" beforeDir="false" afterPath="$PROJECT_DIR$/log/f_kde10.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/f_kde100.png" beforeDir="false" afterPath="$PROJECT_DIR$/log/f_kde100.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/f_kde105.png" beforeDir="false" afterPath="$PROJECT_DIR$/log/f_kde105.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/f_kde110.png" beforeDir="false" afterPath="$PROJECT_DIR$/log/f_kde110.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/f_kde115.png" beforeDir="false" afterPath="$PROJECT_DIR$/log/f_kde115.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/f_kde120.png" beforeDir="false" afterPath="$PROJECT_DIR$/log/f_kde120.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/f_kde125.png" beforeDir="false" afterPath="$PROJECT_DIR$/log/f_kde125.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/f_kde130.png" beforeDir="false" afterPath="$PROJECT_DIR$/log/f_kde130.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/f_kde135.png" beforeDir="false" afterPath="$PROJECT_DIR$/log/f_kde135.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/f_kde140.png" beforeDir="false" afterPath="$PROJECT_DIR$/log/f_kde140.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/f_kde145.png" beforeDir="false" afterPath="$PROJECT_DIR$/log/f_kde145.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/f_kde15.png" beforeDir="false" afterPath="$PROJECT_DIR$/log/f_kde15.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/f_kde150.png" beforeDir="false" afterPath="$PROJECT_DIR$/log/f_kde150.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/f_kde155.png" beforeDir="false" afterPath="$PROJECT_DIR$/log/f_kde155.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/f_kde160.png" beforeDir="false" afterPath="$PROJECT_DIR$/log/f_kde160.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/f_kde165.png" beforeDir="false" afterPath="$PROJECT_DIR$/log/f_kde165.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/f_kde170.png" beforeDir="false" afterPath="$PROJECT_DIR$/log/f_kde170.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/f_kde175.png" beforeDir="false" afterPath="$PROJECT_DIR$/log/f_kde175.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/f_kde180.png" beforeDir="false" afterPath="$PROJECT_DIR$/log/f_kde180.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/f_kde185.png" beforeDir="false" afterPath="$PROJECT_DIR$/log/f_kde185.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/f_kde190.png" beforeDir="false" afterPath="$PROJECT_DIR$/log/f_kde190.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/f_kde195.png" beforeDir="false" afterPath="$PROJECT_DIR$/log/f_kde195.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/f_kde20.png" beforeDir="false" afterPath="$PROJECT_DIR$/log/f_kde20.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/f_kde200.png" beforeDir="false" afterPath="$PROJECT_DIR$/log/f_kde200.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/f_kde205.png" beforeDir="false" afterPath="$PROJECT_DIR$/log/f_kde205.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/f_kde25.png" beforeDir="false" afterPath="$PROJECT_DIR$/log/f_kde25.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/f_kde30.png" beforeDir="false" afterPath="$PROJECT_DIR$/log/f_kde30.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/f_kde35.png" beforeDir="false" afterPath="$PROJECT_DIR$/log/f_kde35.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/f_kde40.png" beforeDir="false" afterPath="$PROJECT_DIR$/log/f_kde40.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/f_kde45.png" beforeDir="false" afterPath="$PROJECT_DIR$/log/f_kde45.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/log/f_kde5.png" beforeDir="false" afterPath="$PROJECT_DIR$/log/f_kde5.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/f_kde50.png" beforeDir="false" afterPath="$PROJECT_DIR$/log/f_kde50.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/f_kde55.png" beforeDir="false" afterPath="$PROJECT_DIR$/log/f_kde55.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/f_kde60.png" beforeDir="false" afterPath="$PROJECT_DIR$/log/f_kde60.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/f_kde65.png" beforeDir="false" afterPath="$PROJECT_DIR$/log/f_kde65.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/f_kde70.png" beforeDir="false" afterPath="$PROJECT_DIR$/log/f_kde70.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/f_kde75.png" beforeDir="false" afterPath="$PROJECT_DIR$/log/f_kde75.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/f_kde80.png" beforeDir="false" afterPath="$PROJECT_DIR$/log/f_kde80.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/f_kde85.png" beforeDir="false" afterPath="$PROJECT_DIR$/log/f_kde85.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/f_kde90.png" beforeDir="false" afterPath="$PROJECT_DIR$/log/f_kde90.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/f_kde95.png" beforeDir="false" afterPath="$PROJECT_DIR$/log/f_kde95.png" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -15,20 +53,20 @@
   </component>
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/map_reduce_bigclam$overlap.coverage" NAME="overlap Coverage Results" MODIFIED="1570856828936" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/dataset" />
-    <SUITE FILE_PATH="coverage/map_reduce_bigclam$contract.coverage" NAME="contract Coverage Results" MODIFIED="1572000236471" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/dataset" />
-    <SUITE FILE_PATH="coverage/map_reduce_bigclam$main.coverage" NAME="main Coverage Results" MODIFIED="1572188602106" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/map_reduce_bigclam$contract.coverage" NAME="contract Coverage Results" MODIFIED="1572275399232" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/dataset" />
+    <SUITE FILE_PATH="coverage/map_reduce_bigclam$main.coverage" NAME="main Coverage Results" MODIFIED="1572261077515" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/map_reduce_bigclam$clean.coverage" NAME="clean Coverage Results" MODIFIED="1570291429842" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/dataset/network" />
     <SUITE FILE_PATH="coverage/map_reduce_bigclam$BigClam.coverage" NAME="BigClam Coverage Results" MODIFIED="1571974945732" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/map_reduce_bigclam$Util.coverage" NAME="Util Coverage Results" MODIFIED="1571995313331" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/map_reduce_bigclam$clean__1_.coverage" NAME="clean (1) Coverage Results" MODIFIED="1571880974813" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/dataset" />
+    <SUITE FILE_PATH="coverage/map_reduce_bigclam$clean__1_.coverage" NAME="clean (1) Coverage Results" MODIFIED="1572275175055" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/dataset" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/BigClam.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1546">
-              <caret line="443" column="93" selection-start-line="443" selection-start-column="93" selection-end-line="443" selection-end-column="93" />
+            <state relative-caret-position="279">
+              <caret line="420" column="75" selection-start-line="420" selection-start-column="75" selection-end-line="420" selection-end-column="75" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -124,9 +162,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" fullScreen="true">
-    <option name="x" value="-1920" />
-    <option name="width" value="1920" />
-    <option name="height" value="1080" />
+    <option name="width" value="1680" />
+    <option name="height" value="1050" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -140,6 +177,11 @@
             <path>
               <item name="map-reduce-bigclam" type="b2602c69:ProjectViewProjectNode" />
               <item name="map-reduce-bigclam" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="map-reduce-bigclam" type="b2602c69:ProjectViewProjectNode" />
+              <item name="map-reduce-bigclam" type="462c0819:PsiDirectoryNode" />
+              <item name="dataset" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="map-reduce-bigclam" type="b2602c69:ProjectViewProjectNode" />
@@ -181,7 +223,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.main">
+  <component name="RunManager" selected="Python.contract">
     <configuration name="BigClam" type="PythonConfigurationType" factoryName="Python">
       <module name="map-reduce-bigclam" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -240,7 +282,7 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/dataset/clean.py" />
-      <option name="PARAMETERS" value="youtube.txt youtube_comm.txt youtube.txt youtube_comm1.txt" />
+      <option name="PARAMETERS" value="amazon.txt amazon_comm.txt amazon.txt amazon_comm1.txt" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -262,7 +304,7 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/dataset/contract.py" />
-      <option name="PARAMETERS" value="youtube.txt youtube_comm.txt 20" />
+      <option name="PARAMETERS" value="amazon.txt amazon_comm.txt 1000" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -284,7 +326,7 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
-      <option name="PARAMETERS" value="dataset/dblp1000.txt dataset/dblp_comm1000.txt bigclam 1000 dataset/output100.txt" />
+      <option name="PARAMETERS" value="dataset/youtube100.txt dataset/youtube_comm100.txt bigclam 100 dataset/output100.txt" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -315,12 +357,12 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.main" />
-      <item itemvalue="Python.contract" />
-      <item itemvalue="Python.clean (1)" />
       <item itemvalue="Python.BigClam" />
-      <item itemvalue="Python.overlap" />
       <item itemvalue="Python.Util" />
+      <item itemvalue="Python.clean (1)" />
+      <item itemvalue="Python.contract" />
+      <item itemvalue="Python.main" />
+      <item itemvalue="Python.overlap" />
     </list>
   </component>
   <component name="SvnConfiguration">
@@ -350,11 +392,21 @@
       <workItem from="1572069378202" duration="6225000" />
       <workItem from="1572178998211" duration="3341000" />
       <workItem from="1572192144677" duration="285000" />
+      <workItem from="1572239847879" duration="8399000" />
+      <workItem from="1572275131617" duration="219000" />
     </task>
+    <task id="LOCAL-00001" summary="change iteration time">
+      <created>1572261128377</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1572261128377</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="144212000" />
+    <option name="totallyTimeSpent" value="152839000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -367,14 +419,13 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.11294261" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.113553114" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32871288" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.4020408" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.4010204" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3990099" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -383,7 +434,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.32871288" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="11" weight="0.2897959" />
+      <window_info anchor="bottom" id="Terminal" order="11" weight="0.2891089" />
       <window_info anchor="bottom" id="Python Console" order="12" weight="0.32905483" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -395,6 +446,10 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="change iteration time" />
+    <option name="LAST_COMMIT_MESSAGE" value="change iteration time" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -411,12 +466,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/BigClam.py</url>
-          <line>413</line>
+          <line>414</line>
           <option name="timeStamp" value="16" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/BigClam.py</url>
-          <line>370</line>
+          <line>371</line>
           <option name="timeStamp" value="17" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -455,11 +510,7 @@
     <entry file="file://$PROJECT_DIR$/likehood_distribution_15.png" />
     <entry file="file://$PROJECT_DIR$/likehood_distribution_10.png" />
     <entry file="file://$PROJECT_DIR$/likehood_distribution_5.png" />
-    <entry file="file://$PROJECT_DIR$/dataset/clean_mapreduce.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-338" />
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/dataset/clean_mapreduce.py" />
     <entry file="file://$PROJECT_DIR$/dataset/output100.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-395" />
@@ -589,8 +640,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/BigClam.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1546">
-          <caret line="443" column="93" selection-start-line="443" selection-start-column="93" selection-end-line="443" selection-end-column="93" />
+        <state relative-caret-position="279">
+          <caret line="420" column="75" selection-start-line="420" selection-start-column="75" selection-end-line="420" selection-end-column="75" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
