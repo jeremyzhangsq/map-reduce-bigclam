@@ -366,6 +366,7 @@ def trainByList(G, truth, k, delta, w, epsilon, alpha, beta, theshold, maxIter, 
     xiter = []
     begin = time.time()
     while iter < maxIter:
+        itertime = time.time()
         random.shuffle(vertex)
         reg = RegCoef
         iter += 1
@@ -417,7 +418,7 @@ def trainByList(G, truth, k, delta, w, epsilon, alpha, beta, theshold, maxIter, 
         f1score.append(f1)
         xiter.append(iter)
         print("iter:{} likelihood:{:.3f} delta:{:.4f} time:{:.3f}s f1score:{:.3f} avgcomm:{}".format(
-            iter, curL, abs((curL - prevL) / prevL), time.time() - begin, f1, avgnum))
+            iter, curL, abs((curL - prevL) / prevL), time.time() - itertime, f1, avgnum))
         if iter % 5 == 0:
             llval = []
             for item in FMap:
@@ -441,7 +442,7 @@ def trainByList(G, truth, k, delta, w, epsilon, alpha, beta, theshold, maxIter, 
     return FMap
 
 
-def bigClam(G, truth, k, delta, alpha=0.05, beta=0.3, theshold=0.001, maxIter=1000, RegCoef=5):
+def bigClam(G, truth, k, delta, alpha=0.05, beta=0.3, theshold=0.001, maxIter=1000, RegCoef=10):
     epsilon = 10**(-8)  # background edge propability in sec. 4
     w = 1
     n_jobs = 10
