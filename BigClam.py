@@ -414,22 +414,27 @@ def trainByList(G, truth, k, delta, w, epsilon, alpha, beta, theshold, maxIter, 
         curL = Likehood(G.list, FMap, w, epsilon, RegCoef)
         comm = getCommunity(FMap, delta)
         fname = "./visual/bigclam_output_{}.txt".format(iter)
-        Util.outputCmty(comm,fname)
+        # Util.outputCmty(comm,fname)
         f1 = Util.f1score(truth, comm)
         avgnum = Util.avgCommNum(comm)
         f1score.append(f1)
         xiter.append(iter)
         print("iter:{} likelihood:{:.3f} delta:{:.4f} time:{:.3f}s f1score:{:.3f} avgcomm:{}".format(
             iter, curL, abs((curL - prevL) / prevL), time.time() - itertime, f1, avgnum))
-        if iter % 5 == 0:
+        if (iter-1) % 5 == 0:
             llval = []
             for item in FMap:
                 for val in FMap[item]:
                     llval.append(FMap[item][val])
-            plt.figure()
+            fig = plt.figure()
+            ax = fig.add_subplot(1, 1, 1)
             sns.distplot(llval)
-            plt.ylim([0, 5])
-            plt.savefig("./log/f_kde{}.png".format(iter))
+            plt.xlim([0, 400])
+            ax.set_yscale('log')
+            ax.set_ylim(ymax=1)
+            ax.set_ylim(ymin=10**-6)
+            plt.title("iteration:{}".format(iter-1))
+            plt.savefig("./log/f_kde{}.png".format(iter-1))
             plt.close()
 
         if abs((curL-prevL)/prevL) <= theshold:
@@ -444,7 +449,7 @@ def trainByList(G, truth, k, delta, w, epsilon, alpha, beta, theshold, maxIter, 
     return FMap
 
 
-def bigClam(G, truth, k, delta, alpha=0.05, beta=0.3, theshold=0.001, maxIter=1000, RegCoef=10):
+def bigClam(G, truth, k, delta, alpha=0.05, beta=0.3, theshold=0.01, maxIter=1000, RegCoef=1):
     epsilon = 10**(-8)  # background edge propability in sec. 4
     w = 1
     n_jobs = 10

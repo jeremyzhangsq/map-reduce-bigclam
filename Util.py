@@ -119,12 +119,12 @@ def outputCmty(community,file):
         lines of communities (users inside a community is delimited by \t)
     '''
     out = open(file,"w")
-    out.write("{}\n".format(metrics["algorithm"]))
-    out.write("{}\n".format(metrics["readTime"]))
-    out.write("{}\n".format(metrics["execTime"]))
-    out.write("{}\n".format(metrics["f1score"]))
+    # out.write("{}\n".format(metrics["algorithm"]))
+    # out.write("{}\n".format(metrics["readTime"]))
+    # out.write("{}\n".format(metrics["execTime"]))
+    # out.write("{}\n".format(metrics["f1score"]))
     # out.write("{}\n".format(metrics["omgIdx"]))
-    out.write("{}\n".format(metrics["accuracy"]))
+    # out.write("{}\n".format(metrics["accuracy"]))
     for i in community:
         s = ""
         item = community[i]
