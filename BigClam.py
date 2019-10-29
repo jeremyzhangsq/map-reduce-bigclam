@@ -413,6 +413,8 @@ def trainByList(G, truth, k, delta, w, epsilon, alpha, beta, theshold, maxIter, 
 
         curL = Likehood(G.list, FMap, w, epsilon, RegCoef)
         comm = getCommunity(FMap, delta)
+        fname = "./visual/bigclam_output_{}.txt".format(iter)
+        Util.outputCmty(comm,fname)
         f1 = Util.f1score(truth, comm)
         avgnum = Util.avgCommNum(comm)
         f1score.append(f1)

@@ -113,6 +113,27 @@ def outputCommunity(metrics,community,file):
         out.write(s)
     out.close()
 
+def outputCmty(community,file):
+    '''
+    outputfile format:
+        lines of communities (users inside a community is delimited by \t)
+    '''
+    out = open(file,"w")
+    out.write("{}\n".format(metrics["algorithm"]))
+    out.write("{}\n".format(metrics["readTime"]))
+    out.write("{}\n".format(metrics["execTime"]))
+    out.write("{}\n".format(metrics["f1score"]))
+    # out.write("{}\n".format(metrics["omgIdx"]))
+    out.write("{}\n".format(metrics["accuracy"]))
+    for i in community:
+        s = ""
+        item = community[i]
+        for each in item[:-1]:
+            s += str(each) + "\t"
+        s += str(item[-1]) + "\n"
+        out.write(s)
+    out.close()
+
 def F1(com1,com2):
     correctly_classified = list(set(com1).intersection(set(com2)))
     precision = len(correctly_classified) / float(len((com1)))
